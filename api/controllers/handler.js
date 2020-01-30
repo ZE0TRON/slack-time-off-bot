@@ -40,13 +40,11 @@ exports.handlePayload = (req, res, next) => {
   let state = payload.view.state;
   let userName = payload.user.username;
   let modalName = payload.view.title.text;
-  console.log(state);
-  console.log(userName);
-  console.log(modalName);
-  console.log(state.values.policy_name.sl_input);
   switch(modalName) {
     case "Create Policy":
-      policyController.createPolicy(userName,)
+      let policy_name = state.values.policy_name.sl_input.value;
+      let max_days = parseInt(state.values.max_days.sl_input.value);
+      policyController.createPolicy(userName,policy_name,max_days);
       break;
     default:
       res.send("Invalid Modal");
