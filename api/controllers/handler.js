@@ -28,32 +28,65 @@ exports.handleCommand = (req,res,next) => {
     responseUrl,
     {
       json: {
-        blocks: [
-          {
-          "type": "actions",
-  "block_id": "actions1",
-  "elements": [
-          {
-            type: "input",
-            block_id: "input123",
-            label: {
-              type: "plain_text",
-              text: "Label of input"
-            },
-            element: {
-              type: "plain_text_input",
-              action_id: "plain_input",
-              placeholder: {
-                type: "plain_text",
-                text: "Enter some plain text"
-              }
-            }
-          }],
-        }
-        
-        ],
-        response_type: "ephemeral"
-      }
+       
+	"type": "modal",
+	"title": {
+		"type": "plain_text",
+		"text": "My App",
+		"emoji": true
+	},
+	"submit": {
+		"type": "plain_text",
+		"text": "Submit",
+		"emoji": true
+	},
+	"close": {
+		"type": "plain_text",
+		"text": "Cancel",
+		"emoji": true
+	},
+	"blocks": [
+		{
+			"type": "input",
+			"element": {
+				"type": "plain_text_input",
+				"action_id": "sl_input",
+				"placeholder": {
+					"type": "plain_text",
+					"text": "Placeholder text for single-line input"
+				}
+			},
+			"label": {
+				"type": "plain_text",
+				"text": "Label"
+			},
+			"hint": {
+				"type": "plain_text",
+				"text": "Hint text"
+			}
+		},
+		{
+			"type": "input",
+			"element": {
+				"type": "plain_text_input",
+				"action_id": "ml_input",
+				"multiline": true,
+				"placeholder": {
+					"type": "plain_text",
+					"text": "Placeholder text for multi-line input"
+				}
+			},
+			"label": {
+				"type": "plain_text",
+				"text": "Label"
+			},
+			"hint": {
+				"type": "plain_text",
+				"text": "Hint text"
+			}
+		}
+	]
+},
     },
     (error, res, body) => {
       if (error) {
