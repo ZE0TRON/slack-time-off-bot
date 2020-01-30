@@ -26,3 +26,10 @@ exports.handleCommand = (req, res, next) => {
   console.log(process.env.TOKEN);
   
 };
+
+exports.handlePayload = (req, res, next) => {
+
+  console.log("handle Payload");
+  console.log(req.body);
+  
+}
