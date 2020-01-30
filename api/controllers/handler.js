@@ -6,6 +6,7 @@ exports.handleCommand = (req, res, next) => {
   let text = req.body.text;
   let command = text.split(" ")[0];
   let responseUrl = req.body.response_url;
+  let trigger_id = req.body.trigger_id;
   switch (command) {
     case "create_policy":
       policyController.createPolicy();
@@ -24,9 +25,11 @@ exports.handleCommand = (req, res, next) => {
   }
   console.log(req.body);
   request.post(
-    responseUrl,
+    "https://slack.com/api/views.open",
     {
       json: {
+        trigger_id:trigger_id,
+        view:{
         type: "modal",
         callback_id: "modal-identifier",
         title: {
@@ -52,6 +55,7 @@ exports.handleCommand = (req, res, next) => {
           }
         ]
       }
+    }
     },
     (error, res, body) => {
       if (error) {
