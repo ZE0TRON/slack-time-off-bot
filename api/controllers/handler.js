@@ -28,8 +28,10 @@ exports.handleCommand = (req, res, next) => {
   request.post(
     "https://slack.com/api/views.open",
     {
+      headers:{
+        Authorization:process.env.TOKEN
+      },
       json: {
-        token:process.env.TOKEN,
         trigger_id:trigger_id,
         view:{
         type: "modal",
