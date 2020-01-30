@@ -4,6 +4,6 @@ exports.verify = (req,res,next) => {
         next();
     }
     else {
-        res.send({msg:"Wrong token"});
+        res.send("Invalid Token");
     }
 };
