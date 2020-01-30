@@ -43,7 +43,7 @@ exports.handlePayload = (req, res, next) => {
   console.log(state);
   console.log(userName);
   console.log(modalName);
-  console.log(state.policy_name.sl_input);
+  console.log(state.value.policy_name.sl_input);
   switch(modalName) {
     case "Create Policy":
       policyController.createPolicy(userName,)
