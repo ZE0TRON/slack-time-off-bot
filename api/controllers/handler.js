@@ -25,10 +25,27 @@ exports.handleCommand = (req,res,next) => {
   }
   console.log(req.body);
   request.post(
-   responseUrl,
+    responseUrl,
     {
       json: {
-        text: "We will process it."
+        blocks : [
+        {
+          "type": "input",
+  "block_id": "input123",
+  "label": {
+    "type": "plain_text",
+    "text": "Label of input"
+  },
+  "element": {
+    "type": "plain_text_input",
+    "action_id": "plain_input",
+    "placeholder": {
+      "type": "plain_text",
+      "text": "Enter some plain text"
+    }
+  }
+}],
+        response_type: "ephemeral"
       }
     },
     (error, res, body) => {
