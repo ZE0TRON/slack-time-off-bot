@@ -5,3 +5,5 @@ router
   .route("/")
   // POST /
   .post(handlerController.handleCommand);
+
+module.exports = router;
