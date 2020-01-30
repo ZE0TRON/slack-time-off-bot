@@ -3,8 +3,8 @@ const express = require("express");
 const http = require("http");
 const routes = require("./api/routes");
 
-dotenv.config({path:".env.dev"});
-const token = process.env.TOKEN;
+dotenv.config({ path: ".env.dev" });
+
 
 let app = express();
 let bodyParser = require("body-parser");
