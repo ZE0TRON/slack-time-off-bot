@@ -30,7 +30,15 @@ exports.handleCommand = (req, res, next) => {
 exports.handlePayload = (req, res, next) => {
 
   console.log("handle Payload");
+  const verify_token = process.env.VERIFICATION_TOKEN;
   let payload = JSON.parse(req.body.payload);
   console.log(payload);
+
+  if (payload.token !== verify_token) {
+    return res.send("Invalid Token");
+  }
+  let states = payload.states;
+  console.log(states);
+
 
 }

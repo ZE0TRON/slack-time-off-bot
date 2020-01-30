@@ -17,6 +17,7 @@
   },
   "blocks": [
     {
+      "block_id":"policy_name",
       "type": "input",
       "element": {
         "type": "plain_text_input",
@@ -25,6 +26,7 @@
           "type": "plain_text",
           "text": "Enter policy name"
         }
+
       },
       "label": {
         "type": "plain_text",
@@ -36,6 +38,7 @@
       }
     },
     {
+      "block_id":"max_day",
       "type": "input",
       "element": {
         "type": "plain_text_input",
