@@ -24,6 +24,7 @@ exports.handleCommand = (req, res, next) => {
       return res.send("Invalid Command");
   }
   console.log(req.body);
+  console.log(process.env.TOKEN);
   request.post(
     "https://slack.com/api/views.open",
     {
