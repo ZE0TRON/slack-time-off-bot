@@ -43,7 +43,7 @@ exports.handlePayload = (req, res, next) => {
   switch(modalName) {
     case "Create Policy":
       let policy_name = state.values.policy_name.sl_input.value;
-      let max_days = parseInt(state.values.max_days.sl_input.value);
+      let max_days = parseInt(state.values.max_day.sl_input.value);
       policyController.createPolicy(userName,policy_name,max_days);
       break;
     default:
