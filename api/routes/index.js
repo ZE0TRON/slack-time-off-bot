@@ -6,7 +6,7 @@ const router = express.Router();
 router
   .route("/api/interactivity")
   // POST /
-  .post(verifier.verify,handlerController.handlePayload);
+  .post(handlerController.handlePayload);
 router
   .route("/api/commands")
   // POST /
