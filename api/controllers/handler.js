@@ -29,7 +29,7 @@ exports.handleCommand = (req, res, next) => {
     "https://slack.com/api/views.open",
     {
       headers:{
-        Authorization:process.env.TOKEN
+        Authorization:"Bearer "+ process.env.TOKEN
       },
       json: {
         trigger_id:trigger_id,
