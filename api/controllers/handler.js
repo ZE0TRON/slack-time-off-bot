@@ -29,21 +29,30 @@ exports.handleCommand = (req,res,next) => {
     {
       json: {
         blocks: [
+          // {
+          //   type: "input",
+          //   block_id: "input123",
+          //   label: {
+          //     type: "plain_text",
+          //     text: "Label of input"
+          //   },
+          //   element: {
+          //     type: "plain_text_input",
+          //     action_id: "plain_input",
+          //     placeholder: {
+          //       type: "plain_text",
+          //       text: "Enter some plain text"
+          //     }
+          //   }
+          // }
           {
-            type: "input",
-            block_id: "input123",
-            label: {
-              type: "plain_text",
-              text: "Label of input"
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text:
+                "A message *with some bold text* and _some italicized text_."
             },
-            element: {
-              type: "plain_text_input",
-              action_id: "plain_input",
-              placeholder: {
-                type: "plain_text",
-                text: "Enter some plain text"
-              }
-            }
+            block_id: "text1"
           }
         ],
         response_type: "ephemeral"
