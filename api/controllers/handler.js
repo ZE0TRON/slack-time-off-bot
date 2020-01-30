@@ -30,6 +30,7 @@ exports.handleCommand = (req, res, next) => {
 exports.handlePayload = (req, res, next) => {
 
   console.log("handle Payload");
-  console.log(req.body);
-  
+  let payload = JSON.parse(req.body.payload);
+  console.log(payload);
+
 }
