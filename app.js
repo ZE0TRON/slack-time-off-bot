@@ -1,3 +1,3 @@
 const dotenv = require("dotenv");
-dotenv.load({path:".env.dev"});
+dotenv.config({path:".env.dev"});
 const token = process.env.TOKEN;
