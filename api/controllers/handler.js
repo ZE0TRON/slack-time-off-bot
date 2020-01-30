@@ -39,9 +39,11 @@ exports.handlePayload = (req, res, next) => {
     return res.send("Invalid Token");
   }
   let state = payload.view.state;
-  let userName = payload.user.user_name;
+  let userName = payload.user.username;
+  let modalName = payload.view.title.text;
   console.log(state);
   console.log(userName);
+  console.log(modalName);
 
 
 }
