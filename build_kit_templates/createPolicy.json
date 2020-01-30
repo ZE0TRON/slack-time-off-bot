@@ -1,0 +1,58 @@
+{
+  "type": "modal",
+  "title": {
+    "type": "plain_text",
+    "text": "Create Policy",
+    "emoji": true
+  },
+  "submit": {
+    "type": "plain_text",
+    "text": "Create",
+    "emoji": true
+  },
+  "close": {
+    "type": "plain_text",
+    "text": "Cancel",
+    "emoji": true
+  },
+  "blocks": [
+    {
+      "type": "input",
+      "element": {
+        "type": "plain_text_input",
+        "action_id": "sl_input",
+        "placeholder": {
+          "type": "plain_text",
+          "text": "Enter policy name"
+        }
+      },
+      "label": {
+        "type": "plain_text",
+        "text": "Policy Name"
+      },
+      "hint": {
+        "type": "plain_text",
+        "text": "Name of Your Time Off Policy"
+      }
+    },
+    {
+      "type": "input",
+      "element": {
+        "type": "plain_text_input",
+        "action_id": "ml_input",
+        "placeholder": {
+          "type": "plain_text",
+          "text": "Enter maximum days"
+        }
+      },
+      "label": {
+        "type": "plain_text",
+        "text": "Max Day"
+      },
+      "hint": {
+        "type": "plain_text",
+        "text": "Enter maximum days allowed in the policy"
+      }
+    }
+  ]
+}
