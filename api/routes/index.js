@@ -2,7 +2,7 @@ const express = require("express");
 const handlerController = require("../controllers/handler");
 const router = express.Router();
 router
-  .route("/")
+  .route("/api")
   // POST /
   .post(handlerController.handleCommand);
 
