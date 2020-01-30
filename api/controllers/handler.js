@@ -38,9 +38,10 @@ exports.handlePayload = (req, res, next) => {
   if (payload.token !== verify_token) {
     return res.send("Invalid Token");
   }
-  let states = payload.view.states;
+  let state = payload.view.state;
   let userName = payload.user.user_name;
-  console.log(states);
+  console.log(state);
+  console.log(userName);
 
 
 }
