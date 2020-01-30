@@ -30,6 +30,10 @@ exports.handleCommand = (req,res,next) => {
       json: {
         blocks: [
           {
+          "type": "actions",
+  "block_id": "actions1",
+  "elements": [
+          {
             type: "input",
             block_id: "input123",
             label: {
@@ -44,7 +48,9 @@ exports.handleCommand = (req,res,next) => {
                 text: "Enter some plain text"
               }
             }
-          }
+          }],
+        }
+        
         ],
         response_type: "ephemeral"
       }
