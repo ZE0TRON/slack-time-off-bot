@@ -42,7 +42,7 @@
       "type": "input",
       "element": {
         "type": "plain_text_input",
-        "action_id": "ml_input",
+        "action_id": "sl_input",
         "placeholder": {
           "type": "plain_text",
           "text": "Enter maximum days"

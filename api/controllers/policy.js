@@ -1,8 +1,8 @@
 const createPolicyTemplate = require("../../build_kit_templates/createPolicy.json");
 const request = require("request");
 
-exports.createPolicy = (trigger_id,userName) => {
-    console.log("Create Policy");
+exports.sendPolicyModal = (trigger_id) => {
+    console.log("Send Policy Modal");
     request.post(
       "https://slack.com/api/views.open",
       {
@@ -24,6 +24,15 @@ exports.createPolicy = (trigger_id,userName) => {
       }
     );
 };
+
+exports.createPolicy = (userName,policyName,maxDays) => {
+    console.log("Create Policy");
+    console.log(userName);
+    console.log(policyName);
+    console.log(maxDays);
+};
+
+
 exports.deletePolicy = () => {
     console.log("Delete Policy");
 };

@@ -8,7 +8,7 @@ exports.handleCommand = (req, res, next) => {
   let user_name = req.body.user_name;
   switch (command) {
     case "create_policy":
-      policyController.createPolicy(trigger_id,user_name);
+      policyController.sendPolicyModal(trigger_id);
       break;
     case "delete_policy":
       policyController.deletePolicy();
@@ -24,7 +24,6 @@ exports.handleCommand = (req, res, next) => {
   }
   console.log(req.body);
   console.log(process.env.TOKEN);
-  
 };
 
 exports.handlePayload = (req, res, next) => {
@@ -44,6 +43,13 @@ exports.handlePayload = (req, res, next) => {
   console.log(state);
   console.log(userName);
   console.log(modalName);
-
+  console.log(state.policy_name.sl_input);
+  switch(modalName) {
+    case "Create Policy":
+      policyController.createPolicy(userName,)
+      break;
+    default:
+      res.send("Invalid Modal");
+  }
 
 }
