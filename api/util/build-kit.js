@@ -1,10 +1,12 @@
 function SelectorOption(text,value) {
-    this.text = {
-        type:"plain_text",
-        text: text,
-        emoji:true
+    return {
+        text = {
+            type:"plain_text",
+            text: text,
+            emoji:true
+        },
+        value = value
     };
-    this.value = value;
 }
 exports.SelectorOption =SelectorOption;
 /*
