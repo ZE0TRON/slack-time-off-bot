@@ -45,9 +45,8 @@ exports.handlePayload = (req, res, next) => {
       let policy_name = state.values.policy_name.sl_input.value;
       let max_days = parseInt(state.values.max_day.sl_input.value);
       policyController.createPolicy(userName,policy_name,max_days);
-      return res.send({
-        text: "Thanks for your request, we'll process it and get back to you."
-      });
+      console.log("Sending res");
+      return res.send();
       break;
     default:
       res.send("Invalid Modal");
