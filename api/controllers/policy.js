@@ -46,7 +46,7 @@ exports.createPolicy = (userName, policyName, maxDays) => {
 exports.sendDeletePolicySelector = (responseUrl, userName) => {
   console.log("Delete Policy");
   // TODO: add options to deletePolicyUpdate
-  getPolicies.then(policies => {
+  getPolicies().then(policies => {
     let options = [];
     for(let i =0;i<policies.length;i++){
       options.push(new build_kit.selectorOption(policies[i].name,policies[i].name));
@@ -80,7 +80,7 @@ exports.deletePolicy = (userName,selected) => {
 };
 
 
-let getPolicies = ()=> {
+let getPolicies = () => {
   return new Promise((resolve,reject)=> {
     let policies = [
       { name: "pol1", max_day: "5" },
