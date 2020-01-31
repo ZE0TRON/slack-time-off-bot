@@ -76,13 +76,18 @@ exports.sendDeletePolicySelector = (responseUrl, userName) => {
           }
           console.log(`statusCode: ${res.statusCode}`);
           console.log(body);
+          res.send();
         }
       );
     })
     .catch(err => {});
 };
 
-exports.deletePolicy = (userName, selected) => {};
+exports.deletePolicy = (userName, selected) => {
+   return new Promise((resolve, reject) => {
+     resolve(1);
+   });
+};
 
 let getPolicies = () => {
   return new Promise((resolve, reject) => {
