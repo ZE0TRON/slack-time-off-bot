@@ -49,9 +49,11 @@ exports.sendDeletePolicySelector = (responseUrl, userName) => {
   getPolicies().then(policies => {
     console.log("After Promise");
     let options = [];
+    console.log(policies.length);
     for(let i =0;i<policies.length;i++){
       options.push(new build_kit.selectorOption(policies[i].name,policies[i].name));
     }
+    console.log("After Loop");
     deletePolicyTemplate.options=options;
     console.log(deletePolicyTemplate);
     console.log(deletePolicyTemplate.options);
