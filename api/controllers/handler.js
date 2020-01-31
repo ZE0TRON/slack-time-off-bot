@@ -47,7 +47,7 @@ exports.handlePayload = (req, res, next) => {
       policyController
         .createPolicy(userName, policy_name, max_days)
         .then((resolve, err) => {
-          if (reject) {
+          if (err) {
             sendError(err, res);
           } else {
             return res.send();
@@ -55,7 +55,7 @@ exports.handlePayload = (req, res, next) => {
         });
 
       break;
-      
+
     default:
       res.send("Invalid Modal");
   }
