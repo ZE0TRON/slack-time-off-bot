@@ -52,6 +52,8 @@ exports.sendDeletePolicySelector = (responseUrl, userName) => {
       options.push(new build_kit.selectorOption(policies[i].name,policies[i].name));
     }
     deletePolicyTemplate.options=options;
+    console.log(deletePolicyTemplate);
+    console.log(deletePolicyTemplate.options);
      request.post(
        responseUrl,
        {
@@ -72,7 +74,6 @@ exports.sendDeletePolicySelector = (responseUrl, userName) => {
   }).catch(err => {
 
   });
- 
 };
 
 exports.deletePolicy = (userName,selected) => {
