@@ -51,6 +51,7 @@ exports.sendDeletePolicySelector = (responseUrl, userName) => {
     let options = [];
     console.log(policies.length);
     for(let i =0;i<policies.length;i++){
+      console.log("In loop");
       options.push(new build_kit.selectorOption(policies[i].name,policies[i].name));
     }
     console.log("After Loop");
