@@ -1,11 +1,11 @@
 function SelectorOption(text,value) {
     return {
-        text = {
+        text : {
             type:"plain_text",
             text: text,
             emoji:true
         },
-        value = value
+        value : value
     };
 }
 exports.SelectorOption =SelectorOption;
