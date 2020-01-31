@@ -1,4 +1,4 @@
-exports.selectorOption = (text,value) => {
+function SelectorOption(text,value) {
     this.text = {
         type:"plain_text",
         text: text,
@@ -6,7 +6,7 @@ exports.selectorOption = (text,value) => {
     };
     this.value = value;
 }
-
+exports.SelectorOption =SelectorOption;
 /*
  "text": {
                             "type": "plain_text",
