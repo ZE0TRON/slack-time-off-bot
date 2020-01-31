@@ -12,7 +12,7 @@ exports.handleCommand = (req, res, next) => {
       policyController.sendPolicyModal(trigger_id);
       break;
     case "delete_policy":
-      policyController.deletePolicy(responseUrl,user_name);
+      policyController.deletePolicy(responseUrl, user_name);
       break;
     case "request":
       timeOffController.requestTimeOff();
@@ -39,7 +39,7 @@ exports.handlePayload = (req, res, next) => {
   }
 
   let userName = payload.user.username;
- 
+
   if (payload.view != null) {
     let modalName = payload.view.title.text;
     let state = payload.view.state;
@@ -61,9 +61,20 @@ exports.handlePayload = (req, res, next) => {
       default:
         res.send("Invalid Modal");
     }
-  }
-  else {
-
+  } else {
+    if (payload.actions != null) {
+      for (let i = 0; i < payload.actions.length; i++) {
+        let action = payload.actions[i];
+        let actionName = action.block_id;
+        
+        switch (actionName) {
+          case "delete_policy":
+            let selected = action.selected_options;
+            console.log(selected);
+            break;
+        }
+      }
+    }
   }
 };
 
