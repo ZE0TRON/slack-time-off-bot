@@ -46,13 +46,11 @@ exports.handlePayload = (req, res, next) => {
 
       policyController
         .createPolicy(userName, policy_name, max_days)
-        .then((resolve, err) => {
-          if (err) {
-            sendError(err, res);
-          } else {
-            return res.send();
-          }
-        });
+        .then((resolve) => {
+          return res.send();
+        }).catch(err => {
+          sendError(err, res);
+        }) ;
 
       break;
 
