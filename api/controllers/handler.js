@@ -38,11 +38,11 @@ exports.handlePayload = (req, res, next) => {
     return res.send("Invalid Token");
   }
 
-  let state = payload.view.state;
   let userName = payload.user.username;
  
   if (payload.view != null) {
     let modalName = payload.view.title.text;
+    let state = payload.view.state;
     switch (modalName) {
       case "Create Policy":
         let policy_name = state.values.policy_name.sl_input.value;
