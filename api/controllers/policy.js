@@ -76,7 +76,6 @@ exports.sendDeletePolicySelector = (responseUrl, userName) => {
           }
           console.log(`statusCode: ${res.statusCode}`);
           console.log(body);
-          res.send();
         }
       );
     })
@@ -84,9 +83,9 @@ exports.sendDeletePolicySelector = (responseUrl, userName) => {
 };
 
 exports.deletePolicy = (userName, selected) => {
-   return new Promise((resolve, reject) => {
-     resolve(1);
-   });
+  return new Promise((resolve, reject) => {
+    resolve(1);
+  });
 };
 
 let getPolicies = () => {
