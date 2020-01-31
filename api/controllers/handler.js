@@ -6,12 +6,13 @@ exports.handleCommand = (req, res, next) => {
   let responseUrl = req.body.response_url;
   let trigger_id = req.body.trigger_id;
   let user_name = req.body.user_name;
+
   switch (command) {
     case "create_policy":
       policyController.sendPolicyModal(trigger_id);
       break;
     case "delete_policy":
-      policyController.deletePolicy();
+      policyController.deletePolicy(responseUrl,user_name);
       break;
     case "request":
       timeOffController.requestTimeOff();
@@ -22,6 +23,7 @@ exports.handleCommand = (req, res, next) => {
     default:
       return res.send("Invalid Command");
   }
+
   console.log(req.body);
   console.log(process.env.TOKEN);
 };
@@ -30,15 +32,16 @@ exports.handlePayload = (req, res, next) => {
   console.log("handle Payload");
   const verify_token = process.env.VERIFICATION_TOKEN;
   let payload = JSON.parse(req.body.payload);
-
   console.log(payload);
 
   if (payload.token !== verify_token) {
     return res.send("Invalid Token");
   }
+
   let state = payload.view.state;
   let userName = payload.user.username;
   let modalName = payload.view.title.text;
+
   switch (modalName) {
     case "Create Policy":
       let policy_name = state.values.policy_name.sl_input.value;
@@ -51,7 +54,6 @@ exports.handlePayload = (req, res, next) => {
         }).catch(err => {
           sendError(err, res);
         }) ;
-
       break;
 
     default:

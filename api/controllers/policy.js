@@ -1,34 +1,38 @@
 const createPolicyTemplate = require("../../build_kit_templates/createPolicy.json");
+const deletePolicyTemplate = require("../../build_kit_templates/deletePolicy.json");
 const request = require("request");
 
-exports.sendPolicyModal = (trigger_id) => {
-    console.log("Send Policy Modal");
-    request.post(
-      "https://slack.com/api/views.open",
-      {
-        headers: {
-          Authorization: "Bearer " + process.env.TOKEN
-        },
-        json: {
-          trigger_id: trigger_id,
-          view: createPolicyTemplate
-        }
+exports.sendPolicyModal = trigger_id => {
+  console.log("Send Policy Modal");
+  request.post(
+    "https://slack.com/api/views.open",
+    {
+      headers: {
+        Authorization: "Bearer " + process.env.TOKEN
       },
-      (error, res, body) => {
-        if (error) {
-          console.error(error);
-          return;
-        }
-        console.log(`statusCode: ${res.statusCode}`);
-        console.log(body);
+      json: {
+        trigger_id: trigger_id,
+        view: createPolicyTemplate
       }
-    );
+    },
+    (error, res, body) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
+      console.log(`statusCode: ${res.statusCode}`);
+      console.log(body);
+    }
+  );
 };
 
-exports.createPolicy = (userName,policyName,maxDays) => {
-  return new Promise((resolve,reject) => {
-    if(policyName.length<3) {
-      reject({msg:"Policy name should be at least 3 characters",block:"policy_name"});
+exports.createPolicy = (userName, policyName, maxDays) => {
+  return new Promise((resolve, reject) => {
+    if (policyName.length < 3) {
+      reject({
+        msg: "Policy name should be at least 3 characters",
+        block: "policy_name"
+      });
     }
     console.log("Create Policy");
     console.log(userName);
@@ -36,11 +40,26 @@ exports.createPolicy = (userName,policyName,maxDays) => {
     console.log(maxDays);
     resolve(1);
   });
-    
 };
 
-
-exports.deletePolicy = () => {
-    console.log("Delete Policy");
+exports.deletePolicy = (responseUrl, userName) => {
+  console.log("Delete Policy");
+  // TODO: add options to deletePolicyUpdate
+  request.post(
+    responseUrl,
+    {
+      // headers: {
+      //   Authorization: "Bearer " + process.env.TOKEN
+      // },
+      json: deletePolicyTemplate
+    },
+    (error, res, body) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
+      console.log(`statusCode: ${res.statusCode}`);
+      console.log(body);
+    }
+  );
 };
-
