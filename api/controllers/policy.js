@@ -47,6 +47,7 @@ exports.sendDeletePolicySelector = (responseUrl, userName) => {
   console.log("Delete Policy");
   // TODO: add options to deletePolicyUpdate
   getPolicies().then(policies => {
+    console.log("After Promise");
     let options = [];
     for(let i =0;i<policies.length;i++){
       options.push(new build_kit.selectorOption(policies[i].name,policies[i].name));
