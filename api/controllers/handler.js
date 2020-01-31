@@ -27,7 +27,6 @@ exports.handleCommand = (req, res, next) => {
 };
 
 exports.handlePayload = (req, res, next) => {
-
   console.log("handle Payload");
   const verify_token = process.env.VERIFICATION_TOKEN;
   let payload = JSON.parse(req.body.payload);
@@ -40,16 +39,34 @@ exports.handlePayload = (req, res, next) => {
   let state = payload.view.state;
   let userName = payload.user.username;
   let modalName = payload.view.title.text;
-  switch(modalName) {
+  switch (modalName) {
     case "Create Policy":
       let policy_name = state.values.policy_name.sl_input.value;
       let max_days = parseInt(state.values.max_day.sl_input.value);
-      policyController.createPolicy(userName,policy_name,max_days);
-      console.log("Sending res");
-      return res.send("Policy Created");
+
+      policyController
+        .createPolicy(userName, policy_name, max_days)
+        .then((resolve, err) => {
+          if (reject) {
+            sendError(err, res);
+          } else {
+            return res.send();
+          }
+        });
+
       break;
+      
     default:
       res.send("Invalid Modal");
   }
+};
 
-}
+let sendError = (err, res) => {
+  console.log(err.msg);
+  let errors = {};
+  errors[err.block] = err.msg;
+  return res.send({
+    response_action: "errors",
+    errors: errors
+  });
+};

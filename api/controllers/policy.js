@@ -26,10 +26,17 @@ exports.sendPolicyModal = (trigger_id) => {
 };
 
 exports.createPolicy = (userName,policyName,maxDays) => {
+  return new Promise((resolve,reject => {
+    if(policyName.length<3) {
+      reject({msg:"Policy name should be at least 3 characters",block:"policy_name"});
+    }
     console.log("Create Policy");
     console.log(userName);
     console.log(policyName);
     console.log(maxDays);
+    resolve(1);
+  }));
+    
 };
 
 
