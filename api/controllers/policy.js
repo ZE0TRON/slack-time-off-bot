@@ -1,5 +1,6 @@
 const createPolicyTemplate = require("../../build_kit_templates/createPolicy.json");
 const deletePolicyTemplate = require("../../build_kit_templates/deletePolicy.json");
+const build_kit = require("../util/build-kit.js");
 const request = require("request");
 
 exports.sendPolicyModal = trigger_id => {
@@ -42,24 +43,57 @@ exports.createPolicy = (userName, policyName, maxDays) => {
   });
 };
 
-exports.deletePolicy = (responseUrl, userName) => {
+exports.sendDeletePolicySelector = (responseUrl, userName) => {
   console.log("Delete Policy");
   // TODO: add options to deletePolicyUpdate
-  request.post(
-    responseUrl,
-    {
-      // headers: {
-      //   Authorization: "Bearer " + process.env.TOKEN
-      // },
-      json: deletePolicyTemplate
-    },
-    (error, res, body) => {
-      if (error) {
-        console.error(error);
-        return;
-      }
-      console.log(`statusCode: ${res.statusCode}`);
-      console.log(body);
+  getPolicies.then(policies => {
+    let options = [];
+    for(let i =0;i<policies.length;i++){
+      options.push(new build_kit.selectorOption(policies[i].name,policies[i].name));
     }
-  );
+    deletePolicyTemplate.options=options;
+     request.post(
+       responseUrl,
+       {
+         // headers: {
+         //   Authorization: "Bearer " + process.env.TOKEN
+         // },
+         json: deletePolicyTemplate
+       },
+       (error, res, body) => {
+         if (error) {
+           console.error(error);
+           return;
+         }
+         console.log(`statusCode: ${res.statusCode}`);
+         console.log(body);
+       }
+     );
+  }).catch(err => {
+
+  });
+ 
+};
+
+exports.deletePolicy = (userName,selected) => {
+
+};
+
+
+let getPolicies = ()=> {
+  return new Promise((resolve,reject)=> {
+    let policies = [
+      { name: "pol1", max_day: "5" },
+      { name: "pol2", max_day: "5" },
+      { name: "pol3", max_day: "2" },
+      { name: "pol4", max_day: "3" },
+      { name: "pol5", max_day: "4" },
+      { name: "pol6", max_day: "5" },
+      { name: "pol7", max_day: "1" },
+      { name: "pol8", max_day: "5" }
+    ];
+    resolve(policies);
+
+  });
+
 };

@@ -12,7 +12,7 @@ exports.handleCommand = (req, res, next) => {
       policyController.sendPolicyModal(trigger_id);
       break;
     case "delete_policy":
-      policyController.deletePolicy(responseUrl, user_name);
+      policyController.sendDeletePolicySelector(responseUrl, user_name);
       break;
     case "request":
       timeOffController.requestTimeOff();
@@ -66,10 +66,10 @@ exports.handlePayload = (req, res, next) => {
       for (let i = 0; i < payload.actions.length; i++) {
         let action = payload.actions[i];
         let actionName = action.block_id;
-        
         switch (actionName) {
           case "delete_policy":
             let selected = action.selected_options.map(x => x.value);
+            policyController.deletePolicy(userName,selected);
             console.log(selected);
             break;
         }
