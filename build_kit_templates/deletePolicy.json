@@ -1,6 +1,7 @@
 {
     "blocks": [
         {
+            "block_id":"delete_policy",
             "type": "section",
             "text": {
                 "type": "mrkdwn",

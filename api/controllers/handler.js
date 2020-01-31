@@ -40,24 +40,30 @@ exports.handlePayload = (req, res, next) => {
 
   let state = payload.view.state;
   let userName = payload.user.username;
-  let modalName = payload.view.title.text;
+ 
+  if (payload.view) {
+    let modalName = payload.view.title.text;
+    switch (modalName) {
+      case "Create Policy":
+        let policy_name = state.values.policy_name.sl_input.value;
+        let max_days = parseInt(state.values.max_day.sl_input.value);
 
-  switch (modalName) {
-    case "Create Policy":
-      let policy_name = state.values.policy_name.sl_input.value;
-      let max_days = parseInt(state.values.max_day.sl_input.value);
+        policyController
+          .createPolicy(userName, policy_name, max_days)
+          .then(resolve => {
+            return res.send();
+          })
+          .catch(err => {
+            sendError(err, res);
+          });
+        break;
 
-      policyController
-        .createPolicy(userName, policy_name, max_days)
-        .then((resolve) => {
-          return res.send();
-        }).catch(err => {
-          sendError(err, res);
-        }) ;
-      break;
-
-    default:
-      res.send("Invalid Modal");
+      default:
+        res.send("Invalid Modal");
+    }
+  }
+  else {
+    
   }
 };
 
