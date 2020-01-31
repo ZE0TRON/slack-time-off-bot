@@ -58,7 +58,7 @@ exports.sendDeletePolicySelector = (responseUrl, userName) => {
         );
       }
       console.log("After Loop");
-      deletePolicyTemplate.options = options;
+      deletePolicyTemplate.blocks[0].accessory.options = options;
       console.log(deletePolicyTemplate);
       console.log(deletePolicyTemplate.options);
       request.post(
