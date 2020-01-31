@@ -41,7 +41,7 @@ exports.handlePayload = (req, res, next) => {
   let state = payload.view.state;
   let userName = payload.user.username;
  
-  if (payload.view) {
+  if (payload.view != null) {
     let modalName = payload.view.title.text;
     switch (modalName) {
       case "Create Policy":
@@ -63,7 +63,7 @@ exports.handlePayload = (req, res, next) => {
     }
   }
   else {
-    
+
   }
 };
 
