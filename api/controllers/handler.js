@@ -69,7 +69,7 @@ exports.handlePayload = (req, res, next) => {
         
         switch (actionName) {
           case "delete_policy":
-            let selected = action.selected_options;
+            let selected = action.selected_options.map(x => x.value);
             console.log(selected);
             break;
         }
