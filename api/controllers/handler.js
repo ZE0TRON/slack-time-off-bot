@@ -10,9 +10,11 @@ exports.handleCommand = (req, res, next) => {
   switch (command) {
     case "create_policy":
       policyController.sendPolicyModal(trigger_id);
+      res.send();
       break;
     case "delete_policy":
       policyController.sendDeletePolicySelector(responseUrl, user_name);
+      res.send();
       break;
     case "request":
       timeOffController.requestTimeOff();
