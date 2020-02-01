@@ -17,10 +17,12 @@ exports.handleCommand = (req, res, next) => {
       res.send();
       break;
     case "request":
-      timeOffController.requestTimeOff();
+      timeOffController.sendTimeOffModal(trigger_id);
+      res.send();
       break;
     case "cancel":
       timeOffController.cancelTimeOff();
+      res.send();
       break;
     default:
       return res.send("Invalid Command");

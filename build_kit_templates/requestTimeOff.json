@@ -1,0 +1,80 @@
+{
+    "type": "modal",
+    "title": {
+        "type": "plain_text",
+        "text": "Request Time Off",
+        "emoji": true
+    },
+    "submit": {
+        "type": "plain_text",
+        "text": "Submit",
+        "emoji": true
+    },
+    "close": {
+        "type": "plain_text",
+        "text": "Cancel",
+        "emoji": true
+    },
+    "blocks": [
+       
+        {
+            "block_id":"policy_select",
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "Select the time off policy"
+            },
+            "accessory": {
+                "type": "multi_static_select",
+                "placeholder": {
+                    "type": "plain_text",
+                    "text": "Select items",
+                    "emoji": true
+                },
+                "options": [
+                    {
+                        "text": {
+                            "type": "plain_text",
+                            "text": "Choice 1",
+                            "emoji": true
+                        },
+                        "value": "value-0"
+                    },
+                    {
+                        "text": {
+                            "type": "plain_text",
+                            "text": "Choice 2",
+                            "emoji": true
+                        },
+                        "value": "value-1"
+                    },
+                    {
+                        "text": {
+                            "type": "plain_text",
+                            "text": "Choice 3",
+                            "emoji": true
+                        },
+                        "value": "value-2"
+                    }
+                ]
+            }
+        },
+        {
+            "block_id":"date_select",
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "Pick a date for time off"
+            },
+            "accessory": {
+                "type": "datepicker",
+                "initial_date": "1990-04-28",
+                "placeholder": {
+                    "type": "plain_text",
+                    "text": "Select a date",
+                    "emoji": true
+                }
+            }
+        }
+    ]
+}

@@ -46,28 +46,15 @@ exports.createPolicy = (userName, policyName, maxDays) => {
 exports.sendDeletePolicySelector = (responseUrl, userName) => {
   console.log("Delete Policy");
   // TODO: add options to deletePolicyUpdate
-  getPolicies()
-    .then(policies => {
-      console.log("After Promise");
-      let options = [];
-      console.log(policies.length);
-      for (let i = 0; i < policies.length; i++) {
-        console.log("In loop");
-        options.push(
-          build_kit.SelectorOption(policies[i].name, policies[i].name)
-        );
-      }
-      console.log("After Loop");
-      deletePolicyTemplate.blocks[0].accessory.options = options;
-      console.log(deletePolicyTemplate);
-      console.log(deletePolicyTemplate.options);
+    build_kit.addPoliciesToMultiSelect(deletePolicyTemplate).then(template=> {
+      
       request.post(
         responseUrl,
         {
           // headers: {
           //   Authorization: "Bearer " + process.env.TOKEN
           // },
-          json: deletePolicyTemplate
+          json: template
         },
         (error, res, body) => {
           if (error) {
@@ -88,7 +75,7 @@ exports.deletePolicy = (userName, selected) => {
   });
 };
 
-let getPolicies = () => {
+exports.getPolicies = () => {
   return new Promise((resolve, reject) => {
     let policies = [
       { name: "pol1", max_day: "5" },
