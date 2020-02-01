@@ -61,9 +61,12 @@ exports.handlePayload = (req, res, next) => {
             sendError(err, res);
           });
         break;
-
+      case "Request Time Off":
+        console.log(payload);
+        return res.send();
+        break;
       default:
-        res.send("Invalid Modal");
+        return res.send("Invalid Modal");
     }
   } else {
     if (payload.actions != null) {
