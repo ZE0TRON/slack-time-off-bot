@@ -64,8 +64,16 @@ exports.handlePayload = (req, res, next) => {
       case "Request Time Off":
         console.log(payload.view.state);
         let stateValues = payload.view.state.values;
-        console.log(stateValues.date_select.picked_date.selected_date);
-        console.log(stateValues.policy_selector.policy_select.selected_option.value);
+        let date = stateValues.date_select.picked_date.selected_date;
+        let policy = stateValues.policy_selector.policy_select.selected_option.value;
+         timeOffController
+           .createTimeOff(policy, date, userName)
+           .then(resolve => {
+             return res.send();
+           })
+           .catch(err => {
+             sendError(err, res);
+           });
         return res.send();
         break;
       default:

@@ -4,41 +4,62 @@ const request = require("request");
 const policyController = require("./policy");
 
 exports.sendTimeOffModal = trigger_id => {
-build_kit.addPoliciesToMultiSelect(requestTimeOffTemplate,true).then(template=> {
-  let today = new Date();
-  let date =
-    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-  template = build_kit.changeInitialDate(template,1,date);
-  console.log("Request TimeOff");
-  request.post(
-    "https://slack.com/api/views.open",
-    {
-      headers: {
-        Authorization: "Bearer " + process.env.TOKEN
-      },
-      json: {
-        trigger_id: trigger_id,
-        view: template
-      }
-    },
-    (error, res, body) => {
-      if (error) {
-        console.error(error);
-        return;
-      }
-      console.log(`statusCode: ${res.statusCode}`);
-      console.log(body);
-    }
-  );
-}).catch(err => {});
+  build_kit
+    .addPoliciesToMultiSelect(requestTimeOffTemplate, true)
+    .then(template => {
+      let today = new Date();
+      let date =
+        today.getFullYear() +
+        "-" +
+        (today.getMonth() + 1) +
+        "-" +
+        today.getDate();
+      template = build_kit.changeInitialDate(template, 1, date);
+      console.log("Request TimeOff");
+      request.post(
+        "https://slack.com/api/views.open",
+        {
+          headers: {
+            Authorization: "Bearer " + process.env.TOKEN
+          },
+          json: {
+            trigger_id: trigger_id,
+            view: template
+          }
+        },
+        (error, res, body) => {
+          if (error) {
+            console.error(error);
+            return;
+          }
+          console.log(`statusCode: ${res.statusCode}`);
+          console.log(body);
+        }
+      );
+    })
+    .catch(err => {});
 };
 
-
-exports.createTimeOff = () => {
-
-    console.log("Request TimeOff");
-
+exports.createTimeOff = (policy,date,user) => {
+  console.log("Create TimeOff");
+  return new Promise((resolve, reject) => {
+    let dateParts= date.split("-");
+    let newDate = new Date(dateParts[2]+" "+dateParts[1]+" "+dateParts[0]);
+    let today = new Date();
+    
+    if (newDate < today) {
+      reject({
+        msg: "Can't Request Time Off in The Past",
+        block: "date_select"
+      });
+    }
+    console.log("Create Policy");
+    console.log(userName);
+    console.log(policyName);
+    console.log(maxDays);
+    resolve(1);
+  });
 };
 exports.cancelTimeOff = () => {
-    console.log("Cancel TimeOff");
+  console.log("Cancel TimeOff");
 };
