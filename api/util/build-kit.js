@@ -32,7 +32,7 @@ exports.addPoliciesToMultiSelect = template => {
   });
 };
 // Date format => 1990-04-28
-exports.changeInitialDate() = (template, blockIndex, date) => {
+exports.changeInitialDate = (template, blockIndex, date) => {
   template.blocks[blockIndex].accessory.initial_date = date;
   return template;
 };
