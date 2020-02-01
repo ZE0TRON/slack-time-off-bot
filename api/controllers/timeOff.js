@@ -4,7 +4,7 @@ const request = require("request");
 const policyController = require("./policy");
 
 exports.sendTimeOffModal = trigger_id => {
-build_kit.addPoliciesToMultiSelect(deletePolicyTemplate).then(template=> {
+build_kit.addPoliciesToMultiSelect(requestTimeOffTemplate).then(template=> {
   console.log("Request TimeOff");
   request.post(
     "https://slack.com/api/views.open",
@@ -14,7 +14,7 @@ build_kit.addPoliciesToMultiSelect(deletePolicyTemplate).then(template=> {
       },
       json: {
         trigger_id: trigger_id,
-        view: requestTimeOffTemplate
+        view: template
       }
     },
     (error, res, body) => {
