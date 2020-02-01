@@ -48,7 +48,8 @@ exports.createTimeOff = (policy, date, user) => {
       dateParts[2] + " " + dateParts[1] + " " + dateParts[0]
     );
     let today = new Date();
-
+    console.log(newDate.toDateString());
+    console.log(today.toDateString());
     if (newDate < today) {
       console.log("Sending err");
       reject({
