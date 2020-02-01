@@ -63,8 +63,8 @@ exports.handlePayload = (req, res, next) => {
         break;
       case "Request Time Off":
         console.log(payload.view.state);
-        console.log(payload.view.state.values.policy_select.value);
-        console.log(payload.view.state.values.picked_date.value);
+        console.log(payload.view.state.values.date_select.picked_date);
+        console.log(payload.view.state.values.policy_selector.policy_select );
         return res.send();
         break;
       default:
