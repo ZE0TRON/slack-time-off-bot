@@ -57,9 +57,9 @@ exports.createTimeOff = (policy, date, user) => {
       });
     }
     console.log("Create Policy");
-    console.log(userName);
-    console.log(policyName);
-    console.log(maxDays);
+    console.log(user);
+    console.log(policy);
+    console.log(date);
     resolve(1);
   });
 };
