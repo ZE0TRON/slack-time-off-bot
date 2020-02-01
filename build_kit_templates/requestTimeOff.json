@@ -25,7 +25,7 @@
                 "text": "Select the time off policy"
             },
             "accessory": {
-                "type": "multi_static_select",
+                "type": "static_select",
                 "placeholder": {
                     "type": "plain_text",
                     "text": "Select items",
