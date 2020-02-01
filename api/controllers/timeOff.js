@@ -45,7 +45,7 @@ exports.createTimeOff = (policy, date, user) => {
   return new Promise((resolve, reject) => {
     let dateParts = date.split("-");
     let newDate = new Date(
-      dateParts[2] + " " + dateParts[1] + " " + dateParts[0]
+      dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0]
     );
     let today = new Date();
     console.log(newDate.toDateString());
