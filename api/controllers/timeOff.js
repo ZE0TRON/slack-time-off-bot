@@ -4,7 +4,7 @@ const request = require("request");
 const policyController = require("./policy");
 
 exports.sendTimeOffModal = trigger_id => {
-build_kit.addPoliciesToMultiSelect(requestTimeOffTemplate).then(template=> {
+build_kit.addPoliciesToMultiSelect(requestTimeOffTemplate,true).then(template=> {
   let today = new Date();
   let date =
     today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();

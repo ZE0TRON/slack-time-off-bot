@@ -62,9 +62,7 @@ exports.handlePayload = (req, res, next) => {
           });
         break;
       case "Request Time Off":
-        //console.log(payload);
-        console.log("Payload blocks");
-        console.log(payload.view.blocks);
+        console.log(payload.view.state);
         return res.send();
         break;
       default:

@@ -16,26 +16,21 @@
         "emoji": true
     },
     "blocks": [
-       
         {
-            "block_id":"policy_select",
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": "Select the time off policy"
-            },
-            "accessory": {
+            "block_id": "policy_select",
+            "type": "input",
+            "element": {
                 "type": "static_select",
                 "placeholder": {
                     "type": "plain_text",
-                    "text": "Select items",
+                    "text": "Select an item",
                     "emoji": true
                 },
                 "options": [
                     {
                         "text": {
                             "type": "plain_text",
-                            "text": "Choice 1",
+                            "text": "*this is plain_text text*",
                             "emoji": true
                         },
                         "value": "value-0"
@@ -43,7 +38,7 @@
                     {
                         "text": {
                             "type": "plain_text",
-                            "text": "Choice 2",
+                            "text": "*this is plain_text text*",
                             "emoji": true
                         },
                         "value": "value-1"
@@ -51,22 +46,23 @@
                     {
                         "text": {
                             "type": "plain_text",
-                            "text": "Choice 3",
+                            "text": "*this is plain_text text*",
                             "emoji": true
                         },
                         "value": "value-2"
                     }
                 ]
+            },
+            "label": {
+                "type": "plain_text",
+                "text": "Select time off policy",
+                "emoji": true
             }
         },
         {
-            "block_id":"date_select",
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": "Pick a date for time off"
-            },
-            "accessory": {
+            "block_id": "date_select",
+            "type": "input",
+            "element": {
                 "type": "datepicker",
                 "initial_date": "1990-04-28",
                 "placeholder": {
@@ -74,6 +70,11 @@
                     "text": "Select a date",
                     "emoji": true
                 }
+            },
+            "label": {
+                "type": "plain_text",
+                "text": "Select time off date",
+                "emoji": true
             }
         }
     ]

@@ -46,8 +46,7 @@ exports.createPolicy = (userName, policyName, maxDays) => {
 exports.sendDeletePolicySelector = (responseUrl, userName) => {
   console.log("Delete Policy");
   // TODO: add options to deletePolicyUpdate
-    build_kit.addPoliciesToMultiSelect(deletePolicyTemplate).then(template=> {
-      
+    build_kit.addPoliciesToMultiSelect(deletePolicyTemplate,false).then(template=> {
       request.post(
         responseUrl,
         {

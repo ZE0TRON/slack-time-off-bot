@@ -11,7 +11,7 @@ function SelectorOption(text, value) {
 }
 exports.SelectorOption = SelectorOption;
 
-exports.addPoliciesToMultiSelect = template => {
+exports.addPoliciesToMultiSelect = (template,isInput) => {
   return new Promise((resolve, reject) => {
     policyController
       .getPolicies()
@@ -23,7 +23,12 @@ exports.addPoliciesToMultiSelect = template => {
           options.push(SelectorOption(policies[i].name, policies[i].name));
         }
         console.log("After Loop");
-        template.blocks[0].accessory.options = options;
+        if(isInput) {
+            template.blocks[0].element.options = options;
+        }
+        else {
+            template.blocks[0].accessory.options = options;
+        }
         resolve(template);
       })
       .catch(err => {
@@ -33,6 +38,6 @@ exports.addPoliciesToMultiSelect = template => {
 };
 // Date format => 1990-04-28
 exports.changeInitialDate = (template, blockIndex, date) => {
-  template.blocks[blockIndex].accessory.initial_date = date;
+  template.blocks[blockIndex].element.initial_date = date;
   return template;
 };
