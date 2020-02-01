@@ -44,7 +44,7 @@ exports.createTimeOff = (policy, date, user) => {
   console.log("Create TimeOff");
   return new Promise((resolve, reject) => {
     let dateParts = date.split("-");
-    let newDateString = dateParts[2] + "/" + dateParts[1] + "/" + dateParts[0];
+    let newDateString = dateParts[1] + "/" + dateParts[2] + "/" + dateParts[0];
     console.log("new Date String : ",newDateString);
     let newDate = new Date(
      newDateString
