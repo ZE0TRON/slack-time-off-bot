@@ -5,7 +5,9 @@ const policyController = require("./policy");
 
 exports.sendTimeOffModal = trigger_id => {
 build_kit.addPoliciesToMultiSelect(requestTimeOffTemplate).then(template=> {
-  let date = new Date().getDate();
+  let today = new Date();
+  let date =
+    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
   template = build_kit.changeInitialDate(template,1,date);
   console.log("Request TimeOff");
   request.post(
