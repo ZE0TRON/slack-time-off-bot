@@ -49,6 +49,7 @@ exports.createTimeOff = (policy, date, user) => {
     let newDate = new Date(
      newDateString
     );
+    newDate.setDate(newDate.getDate() + 1);
     let today = new Date();
     console.log(newDate.toDateString());
     console.log(today.toDateString());
