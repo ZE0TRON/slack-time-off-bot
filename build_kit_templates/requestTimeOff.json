@@ -17,10 +17,11 @@
     },
     "blocks": [
         {
-            "block_id": "policy_select",
+            "block_id": "policy_selector",
             "type": "input",
             "element": {
                 "type": "static_select",
+                "action_id": "policy_select",
                 "placeholder": {
                     "type": "plain_text",
                     "text": "Select an item",
@@ -64,6 +65,7 @@
             "type": "input",
             "element": {
                 "type": "datepicker",
+                "action_id": "picked_date",
                 "initial_date": "1990-04-28",
                 "placeholder": {
                     "type": "plain_text",
