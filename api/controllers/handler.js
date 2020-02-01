@@ -72,9 +72,8 @@ exports.handlePayload = (req, res, next) => {
              return res.send();
            })
            .catch(err => {
-             sendError(err, res);
+             return sendError(err, res);
            });
-        return res.send();
         break;
       default:
         return res.send("Invalid Modal");
