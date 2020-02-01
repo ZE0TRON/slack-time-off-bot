@@ -101,9 +101,11 @@ exports.handlePayload = (req, res, next) => {
 };
 
 let sendError = (err, res) => {
+  console.log(err);
   console.log(err.msg);
   let errors = {};
   errors[err.block] = err.msg;
+  console.log()
   return res.send({
     response_action: "errors",
     errors: errors

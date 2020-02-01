@@ -40,14 +40,17 @@ exports.sendTimeOffModal = trigger_id => {
     .catch(err => {});
 };
 
-exports.createTimeOff = (policy,date,user) => {
+exports.createTimeOff = (policy, date, user) => {
   console.log("Create TimeOff");
   return new Promise((resolve, reject) => {
-    let dateParts= date.split("-");
-    let newDate = new Date(dateParts[2]+" "+dateParts[1]+" "+dateParts[0]);
+    let dateParts = date.split("-");
+    let newDate = new Date(
+      dateParts[2] + " " + dateParts[1] + " " + dateParts[0]
+    );
     let today = new Date();
-    
+
     if (newDate < today) {
+      console.log("Sending err");
       reject({
         msg: "Can't Request Time Off in The Past",
         block: "date_select"
