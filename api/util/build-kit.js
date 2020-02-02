@@ -9,6 +9,7 @@ function SelectorOption(text, value) {
     value: value
   };
 }
+
 exports.SelectorOption = SelectorOption;
 
 exports.addPoliciesToMultiSelect = (template,isInput) => {
@@ -40,4 +41,23 @@ exports.addPoliciesToMultiSelect = (template,isInput) => {
 exports.changeInitialDate = (template, blockIndex, date) => {
   template.blocks[blockIndex].element.initial_date = date;
   return template;
+};
+
+exports.timeOffCancelButton = (date,policy)=> {
+    return {
+      type: "section",
+      text: {
+        type: "mrkdwn",
+        text: "Date : "+date+"\n Policy: "+policy.name
+      },
+      accessory: {
+        type: "button",
+        text: {
+          type: "plain_text",
+          text: "Cancel",
+          emoji: true
+        },
+        value: date+"/"+policy.name
+      }
+    };
 };

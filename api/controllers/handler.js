@@ -21,8 +21,8 @@ exports.handleCommand = (req, res, next) => {
       res.send();
       break;
     case "cancel":
-      timeOffController.cancelTimeOff();
-      res.send();
+      timeOffController.sendCancelTimeOffMessage(res, user_name);
+      //res.send();
       break;
     default:
       return res.send("Invalid Command");
@@ -65,15 +65,16 @@ exports.handlePayload = (req, res, next) => {
         console.log(payload.view.state);
         let stateValues = payload.view.state.values;
         let date = stateValues.date_select.picked_date.selected_date;
-        let policy = stateValues.policy_selector.policy_select.selected_option.value;
-         timeOffController
-           .createTimeOff(policy, date, userName)
-           .then(resolve => {
-             return res.send();
-           })
-           .catch(err => {
-             return sendError(err, res);
-           });
+        let policy =
+          stateValues.policy_selector.policy_select.selected_option.value;
+        timeOffController
+          .createTimeOff(policy, date, userName)
+          .then(resolve => {
+            return res.send();
+          })
+          .catch(err => {
+            return sendError(err, res);
+          });
         break;
       default:
         return res.send("Invalid Modal");
@@ -105,7 +106,7 @@ let sendError = (err, res) => {
   console.log(err.msg);
   let errors = {};
   errors[err.block] = err.msg;
-  console.log()
+  console.log();
   return res.send({
     response_action: "errors",
     errors: errors

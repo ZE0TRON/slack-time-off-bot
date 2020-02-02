@@ -1,0 +1,36 @@
+{
+    "blocks": [
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "Date : 24-02-2020,\n Policy: Policy1"
+            },
+            "accessory": {
+                "type": "button",
+                "text": {
+                    "type": "plain_text",
+                    "text": "Cancel",
+                    "emoji": true
+                },
+                "value": "24-02-2020/Policy1"
+            }
+        },
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "Date : 12-03-2020,\n Policy: Policy5"
+            },
+            "accessory": {
+                "type": "button",
+                "text": {
+                    "type": "plain_text",
+                    "text": "Cancel",
+                    "emoji": true
+                },
+                "value": "12-03-2020/Policy5"
+            }
+        }
+    ]
+}
