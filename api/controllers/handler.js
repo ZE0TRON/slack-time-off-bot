@@ -96,9 +96,11 @@ exports.handlePayload = (req, res, next) => {
             console.log(selected);
             break;
           case "cancel_timeoff":
-            let date,policyName = action.value.split("/");
+            let datePol =action.value.split("/");
+            let date = datePol[0];
+            let policyName = datePol[1];
             timeOffController.cancelTimeOff(date,policyName,userName).then(_=> {
-              return res.send();
+              return res.send("Time off deleted "+date);
             }).catch(err => {
               return sendError(err,res)});
             break;
