@@ -83,7 +83,7 @@ exports.handlePayload = (req, res, next) => {
     if (payload.actions != null) {
       for (let i = 0; i < payload.actions.length; i++) {
         let action = payload.actions[i];
-        let actionName = action.block_id;
+        let actionName = action.block_id.split("/")[0];
         switch (actionName) {
           case "delete_policy":
             let selected = action.selected_options.map(x => x.value);
@@ -95,7 +95,7 @@ exports.handlePayload = (req, res, next) => {
               .catch(err => {});
             console.log(selected);
             break;
-          case "delete_policy":
+          case "cancel_timeoff":
             let date,policyName = action.value.split("/");
             timeOffController.cancelTimeOff(date,policyName,userName).then(_=> {
               return res.send();

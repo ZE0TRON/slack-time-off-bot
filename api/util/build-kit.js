@@ -43,9 +43,9 @@ exports.changeInitialDate = (template, blockIndex, date) => {
   return template;
 };
 
-exports.timeOffCancelButton = (date,policy)=> {
+exports.timeOffCancelButton = (date,policy,index)=> {
     return {
-      block_id:"cancel_timeoff",
+      block_id:"cancel_timeoff"+"/"+index,
       type: "section",
       text: {
         type: "mrkdwn",
