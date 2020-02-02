@@ -73,7 +73,7 @@ exports.sendCancelTimeOffMessage = (res, userName) => {
       cancelTimeOffTemplate.blocks = [];
       for (let i = 0; i < timeOffs.length; i++) {
         cancelTimeOffTemplate.blocks.push(
-          build_kit.timeOffCancelButton(timeOffs[i].date, timeOffs[i].policy)
+          build_kit.timeOffCancelButton(timeOffs[i].date, timeOffs[i].policy,i)
         );
       }
       return res.send(cancelTimeOffTemplate);
