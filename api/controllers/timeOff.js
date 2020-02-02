@@ -81,8 +81,13 @@ exports.sendCancelTimeOffMessage = (res, userName) => {
     .catch(err => {});
 };
 
-exports.cancelTimeOff = () => {
-  console.log("Cancel TimeOff");
+exports.cancelTimeOff = (date,policy,userName) => {
+  return new Promise((resolve,reject) => {
+    console.log("Cancel TimeOff");
+    console.log(date,policy,userName);
+    resolve(1);
+  });
+  
 };
 
 exports.getTimeOffs = userName => {

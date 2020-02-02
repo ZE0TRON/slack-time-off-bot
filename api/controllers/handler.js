@@ -95,6 +95,13 @@ exports.handlePayload = (req, res, next) => {
               .catch(err => {});
             console.log(selected);
             break;
+          case "delete_policy":
+            let date,policyName = action.value.split("/");
+            timeOffController.cancelTimeOff(date,policyName,userName).then(_=> {
+              return res.send();
+            }).catch(err => {
+              return sendError(err,res)});
+            break;
         }
       }
     }
