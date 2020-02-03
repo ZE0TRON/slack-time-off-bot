@@ -56,8 +56,8 @@ exports.addPoliciesToMultiSelect = (template, isInput) => {
         for (let i = 0; i < policies.length; i++) {
           options.push(
             selectorOption(
-              policies[i].name + "-" + policies[i].max_day,
-              policies[i].name + " days"
+              policies[i].name + "-" + policies[i].max_day + " days",
+              policies[i].name
             )
           );
         }
