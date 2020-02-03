@@ -29,7 +29,7 @@ exports.handleCommand = (req, res, next) => {
           console.log("Err");
           console.log(err);
         });
-      
+
       break;
     case "request":
       timeOffController.sendTimeOffModal(trigger_id);

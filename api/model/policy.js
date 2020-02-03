@@ -5,10 +5,8 @@ const policySchema = new mongoose.Schema({
   max_day: Number
 });
 
-const Policy = mongoose.model("Policy", policySchema);
-
 // Gets all policies from database
-Policy.prototype.getPolicies = function() {
+policySchema.prototype.getPolicies = function() {
   console.log("Debug get Policies model");
   return new Promise((resolve, reject) => {
     Policy.find({}, (err, policies) => {
@@ -20,4 +18,6 @@ Policy.prototype.getPolicies = function() {
     });
   });
 };
+
+const Policy = mongoose.model("Policy", policySchema);
 module.exports = Policy;
