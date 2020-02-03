@@ -20,8 +20,13 @@ exports.handleCommand = (req, res, next) => {
       res.send();
       break;
     case "delete_policy":
-      policyController.sendDeletePolicySelector(responseUrl, user_name);
-      res.send();
+      policyController
+        .sendDeletePolicySelector(responseUrl, user_name)
+        .then(_ => {
+          res.send();
+        })
+        .catch(err => {});
+      
       break;
     case "request":
       timeOffController.sendTimeOffModal(trigger_id);

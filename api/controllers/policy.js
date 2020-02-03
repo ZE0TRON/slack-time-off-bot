@@ -54,26 +54,31 @@ exports.createPolicy = (userName, policyName, maxDays) => {
 // Send a list of policies to select them for delete
 exports.sendDeletePolicySelector = (responseUrl, userName) => {
   // TODO: add options to deletePolicyUpdate
-  build_kit
-    .addPoliciesToMultiSelect(deletePolicyTemplate, false)
-    .then(template => {
-      request.post(
-        responseUrl,
-        {
-          // headers: {
-          //   Authorization: "Bearer " + process.env.TOKEN
-          // },
-          json: template
-        },
-        (error, res, body) => {
-          if (error) {
-            console.error(error);
-            return;
+  return new Promise((resolve, reject) => {
+    build_kit
+      .addPoliciesToMultiSelect(deletePolicyTemplate, false)
+      .then(template => {
+        request.post(
+          responseUrl,
+          {
+            // headers: {
+            //   Authorization: "Bearer " + process.env.TOKEN
+            // },
+            json: template
+          },
+          (error, res, body) => {
+            if (error) {
+              console.error(error);
+              reject(err);
+            }
+            resolve(true);
           }
-        }
-      );
-    })
-    .catch(err => {});
+        );
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
 };
 
 // Deletes the policy
