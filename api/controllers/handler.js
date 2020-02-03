@@ -28,6 +28,7 @@ exports.handleCommand = (req, res, next) => {
         .catch(err => {
           console.log("Err");
           console.log(err);
+          res.send(err);
         });
 
       break;

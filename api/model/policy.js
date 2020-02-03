@@ -14,6 +14,9 @@ policySchema.statics.getPolicies = function() {
       if (err) {
         reject(err);
       }
+      if (policies.length == 0) {
+        reject("There is no policy to delete");
+      }
       resolve(policies);
     });
   });
