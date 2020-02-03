@@ -54,10 +54,13 @@ exports.addPoliciesToMultiSelect = (template, isInput) => {
         const options = [];
         console.log(policies.length);
         for (let i = 0; i < policies.length; i++) {
-          console.log("In loop");
-          options.push(selectorOption(policies[i].name, policies[i].name));
+          options.push(
+            selectorOption(
+              policies[i].name + "-" + policies[i].max_day,
+              policies[i].name + " days"
+            )
+          );
         }
-        console.log("After Loop");
         if (isInput) {
           template.blocks[0].element.options = options;
         } else {

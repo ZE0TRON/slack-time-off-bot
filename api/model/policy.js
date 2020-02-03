@@ -7,10 +7,8 @@ const policySchema = new mongoose.Schema({
 
 // Gets all policies from database
 policySchema.statics.getPolicies = function() {
-  console.log("Debug get Policies model");
   return new Promise((resolve, reject) => {
     Policy.find({}, (err, policies) => {
-      console.log("Debug get Policies model find");
       if (err) {
         reject(err);
       }
