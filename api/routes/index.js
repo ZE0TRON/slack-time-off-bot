@@ -1,8 +1,8 @@
 const express = require("express");
 const handlerController = require("../controllers/handler");
 const verifier = require("../util/verifier");
-const router = express.Router();
-
+const router = new express.Router();
+// Routes the requests
 router
   .route("/api/interactivity")
   // POST /
@@ -10,6 +10,6 @@ router
 router
   .route("/api/commands")
   // POST /
-  .post(verifier.verify,handlerController.handleCommand);
+  .post(verifier.verify, handlerController.handleCommand);
 
 module.exports = router;

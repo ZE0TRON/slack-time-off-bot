@@ -3,11 +3,12 @@ const express = require("express");
 const http = require("http");
 const routes = require("./api/routes");
 
+// Load the dotenv config from .env.dev
 dotenv.config({ path: ".env.dev" });
 
-
-let app = express();
-let bodyParser = require("body-parser");
+// Create a express app
+const app = express();
+const bodyParser = require("body-parser");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -23,5 +24,4 @@ app.use(function(req, res, next) {
 
 app.use("/", routes);
 http.createServer(app).listen(port);
-
 console.log("Server started on: " + port);

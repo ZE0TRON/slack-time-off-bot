@@ -3,8 +3,8 @@ const deletePolicyTemplate = require("../../build_kit_templates/deletePolicy.jso
 const build_kit = require("../util/build-kit.js");
 const request = require("request");
 
+// Sends Policy Modal as a response
 exports.sendPolicyModal = trigger_id => {
-  console.log("Send Policy Modal");
   request.post(
     "https://slack.com/api/views.open",
     {
@@ -21,12 +21,11 @@ exports.sendPolicyModal = trigger_id => {
         console.error(error);
         return;
       }
-      console.log(`statusCode: ${res.statusCode}`);
-      console.log(body);
     }
   );
 };
 
+// Creates a policy with given parameters
 exports.createPolicy = (userName, policyName, maxDays) => {
   return new Promise((resolve, reject) => {
     if (policyName.length < 3) {
@@ -35,18 +34,16 @@ exports.createPolicy = (userName, policyName, maxDays) => {
         block: "policy_name"
       });
     }
-    console.log("Create Policy");
-    console.log(userName);
-    console.log(policyName);
-    console.log(maxDays);
     resolve(1);
   });
 };
 
+// Send a list of policies to select them for delete
 exports.sendDeletePolicySelector = (responseUrl, userName) => {
-  console.log("Delete Policy");
   // TODO: add options to deletePolicyUpdate
-    build_kit.addPoliciesToMultiSelect(deletePolicyTemplate,false).then(template=> {
+  build_kit
+    .addPoliciesToMultiSelect(deletePolicyTemplate, false)
+    .then(template => {
       request.post(
         responseUrl,
         {
@@ -60,23 +57,23 @@ exports.sendDeletePolicySelector = (responseUrl, userName) => {
             console.error(error);
             return;
           }
-          console.log(`statusCode: ${res.statusCode}`);
-          console.log(body);
         }
       );
     })
     .catch(err => {});
 };
 
+// Deletes the policy
 exports.deletePolicy = (userName, selected) => {
   return new Promise((resolve, reject) => {
     resolve(1);
   });
 };
 
+// Gets all policies from database
 exports.getPolicies = () => {
   return new Promise((resolve, reject) => {
-    let policies = [
+    const policies = [
       { name: "pol1", max_day: "5" },
       { name: "pol2", max_day: "5" },
       { name: "pol3", max_day: "2" },

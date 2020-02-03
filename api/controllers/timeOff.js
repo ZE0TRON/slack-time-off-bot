@@ -2,21 +2,22 @@ const requestTimeOffTemplate = require("../../build_kit_templates/requestTimeOff
 const cancelTimeOffTemplate = require("../../build_kit_templates/cancelTimeOff.json");
 const build_kit = require("../util/build-kit.js");
 const request = require("request");
-const policyController = require("./policy");
 
+// Sends a time off selection modal as a response
 exports.sendTimeOffModal = trigger_id => {
   build_kit
     .addPoliciesToMultiSelect(requestTimeOffTemplate, true)
     .then(template => {
-      let today = new Date();
-      let date =
+      // Getting to days date in the format of slack's date picker
+      const today = new Date();
+      const date =
         today.getFullYear() +
         "-" +
         (today.getMonth() + 1) +
         "-" +
         today.getDate();
+      // Change the initial date of the date picker to today.
       template = build_kit.changeInitialDate(template, 1, date);
-      console.log("Request TimeOff");
       request.post(
         "https://slack.com/api/views.open",
         {
@@ -33,47 +34,39 @@ exports.sendTimeOffModal = trigger_id => {
             console.error(error);
             return;
           }
-          console.log(`statusCode: ${res.statusCode}`);
-          console.log(body);
         }
       );
     })
     .catch(err => {});
 };
-
+// Creates a time off and saves it to database
 exports.createTimeOff = (policy, date, user) => {
-  console.log("Create TimeOff");
   return new Promise((resolve, reject) => {
-    let dateParts = date.split("-");
-    let newDateString = dateParts[1] + "/" + dateParts[2] + "/" + dateParts[0];
-    console.log("new Date String : ", newDateString);
-    let newDate = new Date(newDateString);
+    const dateParts = date.split("-");
+    const newDateString =
+      dateParts[1] + "/" + dateParts[2] + "/" + dateParts[0];
+    const newDate = new Date(newDateString);
     newDate.setDate(newDate.getDate() + 1);
-    let today = new Date();
-    console.log(newDate.toDateString());
-    console.log(today.toDateString());
+    const today = new Date();
     if (newDate < today) {
-      console.log("Sending err");
       reject({
         msg: "Can't Request Time Off in The Past",
         block: "date_select"
       });
     }
-    console.log("Create Policy");
-    console.log(user);
-    console.log(policy);
-    console.log(date);
     resolve(1);
   });
 };
 
+// Sends a list of time offs with a cancel button as a response
 exports.sendCancelTimeOffMessage = (res, userName) => {
+  // TODO: add update response
   this.getTimeOffs(userName)
     .then(timeOffs => {
       cancelTimeOffTemplate.blocks = [];
       for (let i = 0; i < timeOffs.length; i++) {
         cancelTimeOffTemplate.blocks.push(
-          build_kit.timeOffCancelButton(timeOffs[i].date, timeOffs[i].policy,i)
+          build_kit.timeOffCancelButton(timeOffs[i].date, timeOffs[i].policy, i)
         );
       }
       return res.send(cancelTimeOffTemplate);
@@ -81,15 +74,15 @@ exports.sendCancelTimeOffMessage = (res, userName) => {
     .catch(err => {});
 };
 
-exports.cancelTimeOff = (date,policy,userName) => {
-  return new Promise((resolve,reject) => {
-    console.log("Cancel TimeOff");
-    console.log(date,policy,userName);
+// Deletes a time off
+exports.cancelTimeOff = (date, policy, userName) => {
+  return new Promise((resolve, reject) => {
+    console.log(date, policy, userName);
     resolve(1);
   });
-  
 };
 
+// Gets the current time offs of a user
 exports.getTimeOffs = userName => {
   return new Promise((resolve, reject) => {
     resolve([

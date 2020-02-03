@@ -1,0 +1,14 @@
+{
+    "extends": [
+        "google",
+        "plugin:prettier/recommended"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 6
+      },
+    "rules": {
+        "camelcase": "off",
+        "prefer-promise-reject-errors" : "off"
+        
+    }
+}

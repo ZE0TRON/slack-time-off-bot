@@ -1,12 +1,19 @@
 const policyController = require("./policy");
 const timeOffController = require("./timeOff");
-exports.handleCommand = (req, res, next) => {
-  let text = req.body.text;
-  let command = text.split(" ")[0];
-  let responseUrl = req.body.response_url;
-  let trigger_id = req.body.trigger_id;
-  let user_name = req.body.user_name;
 
+// TODO: trim the inputs
+
+// Handles command received from slack api(user  slash commands).
+// Parses commands and sends them to the appropriate functions.
+exports.handleCommand = (req, res, next) => {
+  // Parse the values from request
+  const text = req.body.text;
+  const command = text.split(" ")[0];
+  const responseUrl = req.body.response_url;
+  const trigger_id = req.body.trigger_id;
+  const user_name = req.body.user_name;
+
+  // Handle the command
   switch (command) {
     case "create_policy":
       policyController.sendPolicyModal(trigger_id);
@@ -22,35 +29,37 @@ exports.handleCommand = (req, res, next) => {
       break;
     case "cancel":
       timeOffController.sendCancelTimeOffMessage(res, user_name);
-      //res.send();
+      // res.send();
       break;
     default:
       return res.send("Invalid Command");
   }
-
-  console.log(req.body);
-  console.log(process.env.TOKEN);
 };
+// Handles payloads received from slack api.
+// Parses payloads and sends them to the appropriate functions.
 
+// TODO: modulate this function
 exports.handlePayload = (req, res, next) => {
-  console.log("handle Payload");
+  // Verify the token of the payload
   const verify_token = process.env.VERIFICATION_TOKEN;
-  let payload = JSON.parse(req.body.payload);
-  console.log(payload);
-
+  const payload = JSON.parse(req.body.payload);
   if (payload.token !== verify_token) {
     return res.send("Invalid Token");
   }
 
-  let userName = payload.user.username;
-
+  const userName = payload.user.username;
+  // If its a payload created with interacting with a slack view.
   if (payload.view != null) {
-    let modalName = payload.view.title.text;
-    let state = payload.view.state;
+    const modalName = payload.view.title.text;
+    // The interaction values are hold in state property.
+    const state = payload.view.state;
+
     switch (modalName) {
+      // If it's created from create policy command interaction
       case "Create Policy":
-        let policy_name = state.values.policy_name.sl_input.value;
-        let max_days = parseInt(state.values.max_day.sl_input.value);
+        // Parse values from state
+        const policy_name = state.values.policy_name.sl_input.value;
+        const max_days = parseInt(state.values.max_day.sl_input.value);
 
         policyController
           .createPolicy(userName, policy_name, max_days)
@@ -61,15 +70,17 @@ exports.handlePayload = (req, res, next) => {
             sendError(err, res);
           });
         break;
+      // If it's created from create request command interaction
       case "Request Time Off":
-        console.log(payload.view.state);
-        let stateValues = payload.view.state.values;
-        let date = stateValues.date_select.picked_date.selected_date;
-        let policy =
+        // Parse values from state
+        const stateValues = payload.view.state.values;
+        const date = stateValues.date_select.picked_date.selected_date;
+        const policy =
           stateValues.policy_selector.policy_select.selected_option.value;
+
         timeOffController
           .createTimeOff(policy, date, userName)
-          .then(resolve => {
+          .then(_ => {
             return res.send();
           })
           .catch(err => {
@@ -79,30 +90,40 @@ exports.handlePayload = (req, res, next) => {
       default:
         return res.send("Invalid Modal");
     }
-  } else {
+  }
+  // If its a payload created with interacting with a slack message.
+  else {
+    // Check whether payload has a valid structure.
     if (payload.actions != null) {
+      // Parse the interactions
       for (let i = 0; i < payload.actions.length; i++) {
-        let action = payload.actions[i];
-        let actionName = action.block_id.split("/")[0];
+        const action = payload.actions[i];
+        const actionName = action.block_id.split("/")[0];
         switch (actionName) {
+          // TODO: fix broken promise here -> loop breaks it.
           case "delete_policy":
-            let selected = action.selected_options.map(x => x.value);
+            const selected = action.selected_options.map(x => x.value);
             policyController
               .deletePolicy(userName, selected)
               .then(_ => {
                 return res.send();
               })
               .catch(err => {});
-            console.log(selected);
             break;
           case "cancel_timeoff":
-            let datePol =action.value.split("/");
-            let date = datePol[0];
-            let policyName = datePol[1];
-            timeOffController.cancelTimeOff(date,policyName,userName).then(_=> {
-              return res.send("Time off deleted "+date);
-            }).catch(err => {
-              return sendError(err,res)});
+            // Parse date and policy
+            const datePol = action.value.split("/");
+            const date = datePol[0];
+            const policyName = datePol[1];
+
+            timeOffController
+              .cancelTimeOff(date, policyName, userName)
+              .then(_ => {
+                return res.send("Time off deleted " + date);
+              })
+              .catch(err => {
+                return sendError(err, res);
+              });
             break;
         }
       }
@@ -110,12 +131,16 @@ exports.handlePayload = (req, res, next) => {
   }
 };
 
-let sendError = (err, res) => {
+/**
+ * Sends an error to a block in slack modal.
+ * @param  {{msg,block}} err -
+ * @param  {Object} res
+ * @return {null}
+ */
+const sendError = (err, res) => {
   console.log(err);
-  console.log(err.msg);
-  let errors = {};
+  const errors = {};
   errors[err.block] = err.msg;
-  console.log();
   return res.send({
     response_action: "errors",
     errors: errors
