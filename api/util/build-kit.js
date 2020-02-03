@@ -1,5 +1,4 @@
-const policyController = require("../controllers/policy");
-
+const Policy = require("../model/policy");
 /**
  * Creates a selector option in slack build kit format
  * @param  {string} text
@@ -50,8 +49,7 @@ function timeOffCancelButton(date, policy, index) {
  */
 exports.addPoliciesToMultiSelect = (template, isInput) => {
   return new Promise((resolve, reject) => {
-    policyController
-      .getPolicies()
+    Policy.getPolicies()
       .then(policies => {
         const options = [];
         console.log(policies.length);

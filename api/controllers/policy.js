@@ -2,7 +2,7 @@ const createPolicyTemplate = require("../../build_kit_templates/createPolicy.jso
 const deletePolicyTemplate = require("../../build_kit_templates/deletePolicy.json");
 const build_kit = require("../util/build-kit.js");
 const request = require("request");
-
+const Policy = require("../model/policy");
 // Sends Policy Modal as a response
 exports.sendPolicyModal = trigger_id => {
   request.post(
@@ -28,13 +28,26 @@ exports.sendPolicyModal = trigger_id => {
 // Creates a policy with given parameters
 exports.createPolicy = (userName, policyName, maxDays) => {
   return new Promise((resolve, reject) => {
-    if (policyName.length < 3) {
-      reject({
-        msg: "Policy name should be at least 3 characters",
-        block: "policy_name"
+    Policy.findOne({ name: policyName }, (err, policy) => {
+      if (policy != null) {
+        reject({
+          msg: "This policy already exists",
+          block: "policy_name"
+        });
+      }
+      const newPolicy = new Policy();
+      newPolicy.name = policyName;
+      newPolicy.max_day = maxDays;
+      newPolicy.save(err => {
+        if (err) {
+          reject({
+            msg: err,
+            block: "policy_name"
+          });
+        }
+        resolve(true);
       });
-    }
-    resolve(1);
+    });
   });
 };
 
@@ -64,25 +77,13 @@ exports.sendDeletePolicySelector = (responseUrl, userName) => {
 };
 
 // Deletes the policy
-exports.deletePolicy = (userName, selected) => {
+exports.deletePolicy = (userName, policyName) => {
   return new Promise((resolve, reject) => {
-    resolve(1);
-  });
-};
-
-// Gets all policies from database
-exports.getPolicies = () => {
-  return new Promise((resolve, reject) => {
-    const policies = [
-      { name: "pol1", max_day: "5" },
-      { name: "pol2", max_day: "5" },
-      { name: "pol3", max_day: "2" },
-      { name: "pol4", max_day: "3" },
-      { name: "pol5", max_day: "4" },
-      { name: "pol6", max_day: "5" },
-      { name: "pol7", max_day: "1" },
-      { name: "pol8", max_day: "5" }
-    ];
-    resolve(policies);
+    Policy.deleteOne({ name: policyName }, err => {
+      if (err) {
+        reject(err);
+      }
+      resolve(true);
+    });
   });
 };
