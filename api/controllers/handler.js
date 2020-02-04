@@ -66,10 +66,8 @@ exports.handlePayload = (req, res, next) => {
       case "Create Policy":
         // Parse values from state
         const policy_name = state.values.policy_name.sl_input.value;
-        let max_days = 0;
-        try {
-          max_days = parseInt(state.values.max_day.sl_input.value);
-        } catch (e) {
+        const max_days = parseInt(state.values.max_day.sl_input.value);
+        if (max_days == null) {
           const err = {
             msg: "Max day should be a number",
             block: "max_day"
