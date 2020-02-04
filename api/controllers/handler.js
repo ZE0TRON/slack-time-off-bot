@@ -101,39 +101,31 @@ exports.handlePayload = (req, res, next) => {
   // If its a payload created with interacting with a slack message.
   else {
     // Check whether payload has a valid structure.
-    if (payload.actions != null) {
-      // Parse the interactions
-      for (let i = 0; i < payload.actions.length; i++) {
-        const action = payload.actions[i];
-        const actionName = action.block_id.split("/")[0];
-        switch (actionName) {
-          // TODO: fix broken promise here -> loop breaks it.
-          case "delete_policy":
-            const selected = action.selected_options.map(x => x.value);
-            policyController
-              .deletePolicy(userName, selected)
-              .then(_ => {
-                return res.send();
-              })
-              .catch(err => {});
-            break;
-          case "cancel_timeoff":
-            // Parse date and policy
-            const datePol = action.value.split("/");
-            const date = datePol[0];
-            const policyName = datePol[1];
+    if (payload.actions == null) {
+      return res.send("Invalid payload");
+    }
+    // Parse the interactions
+    const actionName = payload.actions[0].block_id.split("/")[0];
+    if (actionName === "delete_policy") {
+      deletePolicies(payload.actions, userName)
+        .then(_ => {
+          return res.send();
+        })
+        .catch(err => {});
+    } else if (actionName === "cancel_timeoff") {
+      // Parse date and policy
+      const datePol = action.value.split("/");
+      const date = datePol[0];
+      const policyName = datePol[1];
 
-            timeOffController
-              .cancelTimeOff(date, policyName, userName)
-              .then(_ => {
-                return res.send("Time off deleted " + date);
-              })
-              .catch(err => {
-                return sendError(err, res);
-              });
-            break;
-        }
-      }
+      timeOffController
+        .cancelTimeOff(date, policyName, userName)
+        .then(_ => {
+          return res.send("Time off deleted " + date);
+        })
+        .catch(err => {
+          return sendError(err, res);
+        });
     }
   }
 };
@@ -151,5 +143,20 @@ const sendError = (err, res) => {
   return res.send({
     response_action: "errors",
     errors: errors
+  });
+};
+
+// Parses the policies and send them to delete function
+const deletePolicies = async (policies, userName) => {
+  return new Promise((resolve, reject) => {
+    for (let i = 0; i < policies.length; i++) {
+      const selected = policies[i].selected_options.map(x => x.value);
+      try {
+        await(policyController.deletePolicy(userName, selected));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    resolve(true);
   });
 };
