@@ -28,7 +28,7 @@ function timeOffCancelButton(date, policy, index) {
     type: "section",
     text: {
       type: "mrkdwn",
-      text: "Date : " + date + "\n Policy: " + policy.name
+      text: "Date : " + date + "\n Policy: " + policy
     },
     accessory: {
       type: "button",
@@ -37,7 +37,7 @@ function timeOffCancelButton(date, policy, index) {
         text: "Cancel",
         emoji: true
       },
-      value: date + "/" + policy.name
+      value: date + "/" + policy
     }
   };
 }
