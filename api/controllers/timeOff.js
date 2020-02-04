@@ -80,7 +80,7 @@ exports.createTimeOff = (policy, date, user) => {
 // Sends a list of time offs with a cancel button as a response
 exports.sendCancelTimeOffMessage = (res, userName) => {
   // TODO: add update response
-  TimeOff.getTimeOffs(userName)
+  TimeOff.getTimeOffsByUser(userName)
     .then(timeOffs => {
       cancelTimeOffTemplate.blocks = [];
       console.log(timeOffs);
