@@ -70,7 +70,7 @@ exports.handlePayload = (req, res, next) => {
         try {
           max_days = parseInt(state.values.max_day.sl_input.value);
         } catch (e) {
-          err = {
+          const err = {
             msg: "Max day should be a number",
             block: "max_day"
           };
