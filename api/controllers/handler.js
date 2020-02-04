@@ -107,6 +107,7 @@ exports.handlePayload = (req, res, next) => {
     // Parse the interactions
     const actionName = payload.actions[0].block_id.split("/")[0];
     if (actionName === "delete_policy") {
+      console.log(payload.actions);
       deletePolicies(payload.actions, userName)
         .then(_ => {
           console.log("Policies deleted");
