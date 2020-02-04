@@ -2,7 +2,7 @@ const requestTimeOffTemplate = require("../../build_kit_templates/requestTimeOff
 const cancelTimeOffTemplate = require("../../build_kit_templates/cancelTimeOff.json");
 const build_kit = require("../util/build-kit.js");
 const request = require("request");
-
+const TimeOff = require("../model/timeOff");
 // Sends a time off selection modal as a response
 exports.sendTimeOffModal = trigger_id => {
   build_kit
@@ -54,19 +54,41 @@ exports.createTimeOff = (policy, date, user) => {
         block: "date_select"
       });
     }
-    resolve(1);
+    // Assuming even with different policy names you can't make a time off request to same date
+    TimeOff.findOne({ user_name: user, date: date }, (err, timeOff) => {
+      if (timeOff != null) {
+        reject({
+          msg: "You already have time off request for this date",
+          block: "date_select"
+        });
+      }
+      const newTimeOff = new TimeOff();
+      newTimeOff.user_name = user;
+      newTimeOff.policy_name = policy;
+      newTimeOff.date = date;
+      newTimeOff.save(err => {
+        if (err) {
+          reject(err);
+        }
+        resolve(true);
+      });
+    });
   });
 };
 
 // Sends a list of time offs with a cancel button as a response
 exports.sendCancelTimeOffMessage = (res, userName) => {
   // TODO: add update response
-  this.getTimeOffs(userName)
+  TimeOff.getTimeOffs(userName)
     .then(timeOffs => {
       cancelTimeOffTemplate.blocks = [];
       for (let i = 0; i < timeOffs.length; i++) {
         cancelTimeOffTemplate.blocks.push(
-          build_kit.timeOffCancelButton(timeOffs[i].date, timeOffs[i].policy, i)
+          build_kit.timeOffCancelButton(
+            timeOffs[i].date,
+            timeOffs[i].policy_name,
+            i
+          )
         );
       }
       return res.send(cancelTimeOffTemplate);
@@ -77,20 +99,27 @@ exports.sendCancelTimeOffMessage = (res, userName) => {
 // Deletes a time off
 exports.cancelTimeOff = (date, policy, userName) => {
   return new Promise((resolve, reject) => {
-    console.log(date, policy, userName);
-    resolve(1);
+    TimeOff.deleteOne(
+      { user_name: userName, date: date, policy_name: policy },
+      err => {
+        if (err) {
+          reject(err);
+        }
+        resolve(1);
+      }
+    );
   });
 };
 
 // Gets the current time offs of a user
-exports.getTimeOffs = userName => {
-  return new Promise((resolve, reject) => {
-    resolve([
-      {
-        date: "24-02-2020",
-        policy: { name: "Policy1", max_day: "2" }
-      },
-      { date: "12-03-2020", policy: { name: "Policy5", max_day: "20" } }
-    ]);
-  });
-};
+// exports.getTimeOffs = userName => {
+//   return new Promise((resolve, reject) => {
+//     resolve([
+//       {
+//         date: "24-02-2020",
+//         policy: { name: "Policy1", max_day: "2" }
+//       },
+//       { date: "12-03-2020", policy: { name: "Policy5", max_day: "20" } }
+//     ]);
+//   });
+// };
