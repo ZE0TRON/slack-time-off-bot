@@ -20,6 +20,7 @@ exports.sendTimeOffAnnouncement = () => {
       }
       const channelName = "timeoff";
       timeOffList = build_kit.createTimeOffList(timeOffs);
+      console.log("Sending the list");
       request.post(
         "https://slack.com/api/chat.postMessage",
         {
@@ -36,6 +37,8 @@ exports.sendTimeOffAnnouncement = () => {
             console.error(error);
             return;
           }
+          console.log(body);
+          console.log(res);
         }
       );
     })
