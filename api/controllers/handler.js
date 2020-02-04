@@ -125,7 +125,7 @@ exports.handlePayload = (req, res, next) => {
         });
     } else if (actionName === "cancel_timeoff") {
       // Parse date and policy
-      const datePol = action.value.split("/");
+      const datePol = payload.actions[0].value.split("/");
       const date = datePol[0];
       const policyName = datePol[1];
 
