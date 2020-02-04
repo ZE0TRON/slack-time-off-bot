@@ -58,7 +58,7 @@ exports.createTimeOff = (policy, date, user, user_id) => {
     // Assuming even with different policy names you can't make a time off request to same date
     TimeOff.findOne({ user_name: user, date: date }, (err, timeOff) => {
       if (timeOff != null) {
-        reject({
+        return reject({
           msg: "You already have time off request for this date",
           block: "date_select"
         });
