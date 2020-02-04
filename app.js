@@ -3,7 +3,8 @@ const express = require("express");
 const http = require("http");
 const routes = require("./api/routes");
 const mongoose = require("mongoose");
-
+const schedule = require("node-schedule");
+const announcement = require("./api/util/announcement");
 // Load the dotenv config from .env.dev
 dotenv.config({ path: ".env.dev" });
 
@@ -32,5 +33,15 @@ app.use(function(req, res, next) {
 app.use("/", routes);
 http.createServer(app).listen(port);
 console.log("Server started on: " + port);
+
+const timeOffAnnouncementsRule = new schedule.RecurrenceRule();
+timeOffAnnouncements.dayOfWeek = 1;
+timeOffAnnouncements.hour = 0;
+timeOffAnnouncements.minute = 0;
+
+const timeOffAnnouncementsJob = schedule.scheduleJob(
+  timeOffAnnouncementsRule,
+  announcement.sendTimeOffAnnouncement
+);
 
 exports.db = db;

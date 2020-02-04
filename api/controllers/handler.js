@@ -12,6 +12,7 @@ exports.handleCommand = (req, res, next) => {
   const responseUrl = req.body.response_url;
   const trigger_id = req.body.trigger_id;
   const user_name = req.body.user_name;
+  console.log(req.body);
 
   // Handle the command
   switch (command) {
