@@ -109,9 +109,12 @@ exports.handlePayload = (req, res, next) => {
     if (actionName === "delete_policy") {
       deletePolicies(payload.actions, userName)
         .then(_ => {
+          console.log("Policies deleted");
           return res.send();
         })
-        .catch(err => {});
+        .catch(err => {
+          console.log(err);
+        });
     } else if (actionName === "cancel_timeoff") {
       // Parse date and policy
       const datePol = action.value.split("/");
@@ -149,9 +152,11 @@ const sendError = (err, res) => {
 // Parses the policies and send them to delete function
 const deletePolicies = (policies, userName) => {
   return new Promise(async (resolve, reject) => {
+    console.log("Deleting policies");
     for (let i = 0; i < policies.length; i++) {
       const selected = policies[i].selected_options.map(x => x.value);
       try {
+        console.log("Deleting policy ", i);
         await policyController.deletePolicy(userName, selected);
       } catch (e) {
         reject(e);
