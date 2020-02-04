@@ -66,7 +66,16 @@ exports.handlePayload = (req, res, next) => {
       case "Create Policy":
         // Parse values from state
         const policy_name = state.values.policy_name.sl_input.value;
-        const max_days = parseInt(state.values.max_day.sl_input.value);
+        let max_days = 0;
+        try {
+          max_days = parseInt(state.values.max_day.sl_input.value);
+        } catch (e) {
+          err = {
+            msg: "Max day should be a number",
+            block: "max_day"
+          };
+          return sendError(err, res);
+        }
 
         policyController
           .createPolicy(userName, policy_name, max_days)
@@ -110,7 +119,6 @@ exports.handlePayload = (req, res, next) => {
       console.log(payload.actions);
       deletePolicies(payload.actions[0].selected_options, userName)
         .then(_ => {
-          console.log("Policies deleted");
           return res.send();
         })
         .catch(err => {
@@ -154,10 +162,8 @@ const sendError = (err, res) => {
 const deletePolicies = (selecteds, userName) => {
   return new Promise(async (resolve, reject) => {
     const policies = selecteds.map(x => x.value);
-    console.log("Policies :", policies);
     for (let i = 0; i < policies.length; i++) {
       try {
-        console.log("Deleting policy ", i);
         await policyController.deletePolicy(userName, policies[i]);
       } catch (e) {
         reject(e);

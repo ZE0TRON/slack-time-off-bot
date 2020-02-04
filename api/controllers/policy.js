@@ -85,7 +85,6 @@ exports.sendDeletePolicySelector = (responseUrl, userName) => {
 exports.deletePolicy = (userName, policyName) => {
   return new Promise((resolve, reject) => {
     Policy.deleteOne({ name: policyName }, err => {
-      console.log("Deleted Policy", policyName);
       if (err) {
         reject(err);
       }
