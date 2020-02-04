@@ -18,7 +18,7 @@ exports.sendTimeOffAnnouncement = () => {
           timeOffs.splice(i, 1);
         }
       }
-      const channelName = "";
+      const channelName = "timeoff";
       timeOffList = build_kit.createTimeOffList(timeOffs);
       request.post(
         "https://slack.com/api/chat.postMessage",
@@ -27,7 +27,7 @@ exports.sendTimeOffAnnouncement = () => {
             Authorization: "Bearer " + process.env.TOKEN
           },
           json: {
-            channel: trigger_id,
+            channel: channelName,
             blocks: timeOffList.blocks
           }
         },

@@ -1,6 +1,6 @@
 const policyController = require("./policy");
 const timeOffController = require("./timeOff");
-
+const announcement = require("../util/announcement");
 // TODO: trim the inputs
 
 // Handles command received from slack api(user  slash commands).
@@ -40,6 +40,9 @@ exports.handleCommand = (req, res, next) => {
       timeOffController.sendCancelTimeOffMessage(res, user_name);
       // res.send();
       break;
+    case "list":
+      announcement.sendTimeOffAnnouncement();
+      res.send();
     default:
       return res.send("Invalid Command");
   }
