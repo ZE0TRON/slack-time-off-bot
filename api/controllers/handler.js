@@ -67,7 +67,8 @@ exports.handlePayload = (req, res, next) => {
         // Parse values from state
         const policy_name = state.values.policy_name.sl_input.value;
         const max_days = parseInt(state.values.max_day.sl_input.value);
-        if (max_days == NaN) {
+        if (isNaN(max_days)) {
+          console.log("there is an error max days");
           const err = {
             msg: "Max day should be a number",
             block: "max_day"
