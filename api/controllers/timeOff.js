@@ -83,6 +83,7 @@ exports.sendCancelTimeOffMessage = (res, userName) => {
   TimeOff.getTimeOffs(userName)
     .then(timeOffs => {
       cancelTimeOffTemplate.blocks = [];
+      console.log(timeOffs);
       for (let i = 0; i < timeOffs.length; i++) {
         cancelTimeOffTemplate.blocks.push(
           build_kit.timeOffCancelButton(
