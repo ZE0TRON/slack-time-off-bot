@@ -147,12 +147,12 @@ const sendError = (err, res) => {
 };
 
 // Parses the policies and send them to delete function
-const deletePolicies = async (policies, userName) => {
-  return new Promise((resolve, reject) => {
+const deletePolicies = (policies, userName) => {
+  return new Promise(async (resolve, reject) => {
     for (let i = 0; i < policies.length; i++) {
       const selected = policies[i].selected_options.map(x => x.value);
       try {
-        await(policyController.deletePolicy(userName, selected));
+        await policyController.deletePolicy(userName, selected);
       } catch (e) {
         reject(e);
       }
