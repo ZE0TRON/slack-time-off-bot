@@ -108,7 +108,7 @@ exports.handlePayload = (req, res, next) => {
     const actionName = payload.actions[0].block_id.split("/")[0];
     if (actionName === "delete_policy") {
       console.log(payload.actions);
-      deletePolicies(payload.actions, userName)
+      deletePolicies(payload.actions[0].selected_options, userName)
         .then(_ => {
           console.log("Policies deleted");
           return res.send();
@@ -151,14 +151,14 @@ const sendError = (err, res) => {
 };
 
 // Parses the policies and send them to delete function
-const deletePolicies = (policies, userName) => {
+const deletePolicies = (selecteds, userName) => {
   return new Promise(async (resolve, reject) => {
-    console.log("Deleting policies");
+    const policies = selecteds.map(x => x.value);
+    console.log("Policies :", policies);
     for (let i = 0; i < policies.length; i++) {
-      const selected = policies[i].selected_options.map(x => x.value);
       try {
         console.log("Deleting policy ", i);
-        await policyController.deletePolicy(userName, selected);
+        await policyController.deletePolicy(userName, policies[i]);
       } catch (e) {
         reject(e);
       }
