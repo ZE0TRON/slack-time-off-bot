@@ -40,7 +40,7 @@ exports.sendTimeOffModal = trigger_id => {
     .catch(err => {});
 };
 // Creates a time off and saves it to database
-exports.createTimeOff = (policy, date, user) => {
+exports.createTimeOff = (policy, date, user, user_id) => {
   return new Promise((resolve, reject) => {
     const dateParts = date.split("-");
     const newDateString =
@@ -65,6 +65,7 @@ exports.createTimeOff = (policy, date, user) => {
       }
       const newTimeOff = new TimeOff();
       newTimeOff.user_name = user;
+      newTimeOff.user_id = user_id;
       newTimeOff.policy_name = policy;
       newTimeOff.date = date;
       newTimeOff.save(err => {

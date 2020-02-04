@@ -1,6 +1,6 @@
 const TimeOff = require("../model/timeOff");
 const request = require("request");
-
+const build_kit = require("./build-kit");
 // Deletes outdated time offs and send the active ones
 exports.sendTimeOffAnnouncement = () => {
   TimeOff.getTimeOffs()
@@ -19,7 +19,7 @@ exports.sendTimeOffAnnouncement = () => {
         }
       }
       const channelName = "";
-      
+      timeOffList = build_kit.createTimeOffList(timeOffs);
       request.post(
         "https://slack.com/api/chat.postMessage",
         {
@@ -28,7 +28,7 @@ exports.sendTimeOffAnnouncement = () => {
           },
           json: {
             channel: trigger_id,
-            text: ""
+            blocks: timeOffList.blocks
           }
         },
         (error, res, body) => {

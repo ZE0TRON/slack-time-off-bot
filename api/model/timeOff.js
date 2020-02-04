@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const timeOffSchema = new mongoose.Schema({
   user_name: String,
+  user_id: String,
   policy_name: String,
   date: String
 });

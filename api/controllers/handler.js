@@ -12,6 +12,7 @@ exports.handleCommand = (req, res, next) => {
   const responseUrl = req.body.response_url;
   const trigger_id = req.body.trigger_id;
   const user_name = req.body.user_name;
+
   console.log(req.body);
 
   // Handle the command
@@ -54,7 +55,7 @@ exports.handlePayload = (req, res, next) => {
   if (payload.token !== verify_token) {
     return res.send("Invalid Token");
   }
-
+  const user_id = req.body.user_id;
   const userName = payload.user.username;
   // If its a payload created with interacting with a slack view.
   if (payload.view != null) {
@@ -95,7 +96,7 @@ exports.handlePayload = (req, res, next) => {
           stateValues.policy_selector.policy_select.selected_option.value;
 
         timeOffController
-          .createTimeOff(policy, date, userName)
+          .createTimeOff(policy, date, userName,user_id)
           .then(_ => {
             return res.send();
           })

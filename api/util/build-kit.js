@@ -1,4 +1,5 @@
 const Policy = require("../model/policy");
+const timeOffListTemplate = require("../../build_kit_templates/timeOffList.json");
 /**
  * Creates a selector option in slack build kit format
  * @param  {string} text
@@ -41,6 +42,34 @@ function timeOffCancelButton(date, policy, index) {
     }
   };
 }
+/**
+ * @param  {Object} timeOffs
+ * @return {Object}
+ */
+function createTimeOffList(timeOffs) {
+  for (let i = 0; i < timeOffs.length; i++) {
+    let timeOffItem = {
+      type: "section",
+      text: {
+        type: "mrkdwn",
+        text:
+          "*User* : <" +
+          timeOffs[i].user_id +
+          "> \n *Policy* : " +
+          timeOffs[i].policy_name +
+          " \n *Date*: " +
+          timeOffs[i].date
+      }
+    };
+    let divider = {
+      type: "divider"
+    };
+    timeOffListTemplate.blocks.push(timeOffItem);
+    timeOffListTemplate.blocks.push(divider);
+  }
+  return timeOffListTemplate;
+}
+
 // Adds the current policies to given multi select
 /**
  * @param  {Object} template => Multi Select Template
@@ -83,3 +112,4 @@ exports.changeInitialDate = (template, blockIndex, date) => {
 
 exports.selectorOption = selectorOption;
 exports.timeOffCancelButton = timeOffCancelButton;
+exports.createTimeOffList = createTimeOffList;
