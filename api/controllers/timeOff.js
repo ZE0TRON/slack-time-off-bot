@@ -47,6 +47,7 @@ exports.createTimeOff = (policy, date, user) => {
       dateParts[1] + "/" + dateParts[2] + "/" + dateParts[0];
     const newDate = new Date(newDateString);
     newDate.setDate(newDate.getDate() + 1);
+    console.log(policy);
     const today = new Date();
     if (newDate < today) {
       reject({
