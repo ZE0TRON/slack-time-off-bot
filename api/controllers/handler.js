@@ -43,6 +43,7 @@ exports.handleCommand = (req, res, next) => {
     case "list":
       announcement.sendTimeOffAnnouncement();
       res.send();
+      break;
     default:
       return res.send("Invalid Command");
   }
