@@ -95,7 +95,9 @@ exports.sendCancelTimeOffMessage = (res, userName) => {
       }
       return res.send(cancelTimeOffTemplate);
     })
-    .catch(err => {});
+    .catch(err => {
+      res.send(err);
+    });
 };
 
 // Deletes a time off
