@@ -47,6 +47,7 @@ function timeOffCancelButton(date, policy, index) {
  * @return {Object}
  */
 function createTimeOffList(timeOffs) {
+  const timeOffList = JSON.parse(JSON.stringify(timeOffListTemplate));
   for (let i = 0; i < timeOffs.length; i++) {
     const date = dateFormat(timeOffs[i].date);
     const timeOffItem = {
@@ -66,7 +67,6 @@ function createTimeOffList(timeOffs) {
       type: "divider"
     };
     // Copy the object
-    const timeOffList = JSON.parse(JSON.stringify(timeOffListTemplate));
     timeOffList.blocks.push(timeOffItem);
     timeOffList.blocks.push(divider);
   }
