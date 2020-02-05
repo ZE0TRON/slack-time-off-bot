@@ -1,5 +1,6 @@
 const Policy = require("../../api/model/policy");
 const TimeOff = require("../../api/model/timeOff");
+const build_kit = require("../../api/util/build-kit");
 const users = [
   { user_id: "U134123", user_name: "user1" },
   { user_id: "U234234", user_name: "user2" },
@@ -16,39 +17,66 @@ const policies = [
   new Policy({ name: "pol5", max_day: 100 })
 ];
 
+const nextMonday = new Date();
+nextMonday.setDate(nextMonday.getDate() + ((1 + 7 - nextMonday.getDay()) % 7));
+const nextMondayString = build_kit.toSlackDate(nextMonday);
+const nextYear1 = new Date();
+nextYear1.setDate(nextYear1.getDate() + 365);
+const nextYear1String = build_kit.toSlackDate(nextYear1);
+
+const nextYear2 = new Date();
+nextYear2.setDate(nextYear2.getDate() + 366);
+const nextYear2String = build_kit.toSlackDate(nextYear2);
+
+const nextMonth = new Date();
+nextMonth.setDate(nextMonth.getDate() + 30);
+const nextMonthString = build_kit.toSlackDate(nextMonth);
+
+const yesterday = new Date();
+yesterday.setDate(yesterday.getDate() - 1);
+const yesterdayString = build_kit.toSlackDate(yesterday);
+
+const thisWeek1 = new Date();
+thisWeek1.setDate(thisWeek1.getDate() + 1);
+const thisWeek1String = build_kit.toSlackDate(thisWeek1);
+
+const thisWeek2 = new Date();
+thisWeek2.setDate(thisWeek2.getDate() + 2);
+const thisWeek2String = build_kit.toSlackDate(thisWeek2);
+
 const timeOffs = [
   // In the future
   new TimeOff({
     policy_name: policies[0].name,
     user_name: users[0].user_name,
     user_id: users[0].user_id,
-    date: "2020-02-20"
+    date: nextMondayString
   }),
   // Will be deleted in test
   new TimeOff({
     policy_name: policies[0].name,
     user_name: users[1].user_name,
     user_id: users[1].user_id,
-    date: "2020-02-20"
+    date: nextYear1String
   }),
   //
   new TimeOff({
     policy_name: policies[1].name,
     user_name: users[1].user_name,
     user_id: users[1].user_id,
-    date: "2020-02-21"
+    date: nextMonthString
   }),
   new TimeOff({
     policy_name: policies[0].name,
     user_name: users[2].user_name,
     user_id: users[2].user_id,
-    date: "2020-03-21"
+    date: nextYear2String
   }),
   new TimeOff({
     policy_name: policies[0].name,
     user_name: users[0].user_name,
     user_id: users[0].user_id,
-    date: "2021-04-20"
+    date: nextYear1String
   }),
   // In this week
   // TODO: automate this to this week
@@ -56,20 +84,20 @@ const timeOffs = [
     policy_name: policies[4].name,
     user_name: users[2].user_name,
     user_id: users[2].user_id,
-    date: "2020-02-7"
+    date: thisWeek1String
   }),
   new TimeOff({
     policy_name: policies[2].name,
     user_name: users[2].user_name,
     user_id: users[2].user_id,
-    date: "2020-02-8"
+    date: thisWeek2String
   }),
   // Expired => Needs to be deleted
   new TimeOff({
     policy_name: policies[1].name,
     user_name: users[2].user_name,
     user_id: users[2].user_id,
-    date: "2020-02-2"
+    date: yesterdayString
   })
 ];
 exports.users = users;
