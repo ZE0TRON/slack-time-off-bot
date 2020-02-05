@@ -33,7 +33,7 @@
     "collectCoverageFrom": [
       "api/**/*.js"
     ],
-    "coverageDirectory": "test/data/coverage/",
+    "coverageDirectory": "test/coverage/",
     "globalSetup": "./test/setup.js",
     "globalTeardown": "./test/teardown.js"
   }

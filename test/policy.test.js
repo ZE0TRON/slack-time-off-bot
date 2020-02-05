@@ -2,14 +2,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const Policy = require("../api/model/policy");
 const PolicyController = require("../api/controllers/policy");
-
-const policies = [
-  new Policy({ name: "pol1", max_day: 5 }),
-  new Policy({ name: "pol2", max_day: 2 }),
-  new Policy({ name: "pol3", max_day: 3 }),
-  new Policy({ name: "pol4", max_day: 4 }),
-  new Policy({ name: "pol5", max_day: 100 })
-];
+const policies = require("./data/data").policies;
 describe("Policy", () => {
   let db;
   beforeAll(async () => {

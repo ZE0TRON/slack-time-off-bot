@@ -9,13 +9,7 @@ exports.sendTimeOffModal = trigger_id => {
     .addPoliciesToMultiSelect(requestTimeOffTemplate, true)
     .then(template => {
       // Getting to days date in the format of slack's date picker
-      const today = new Date();
-      const date =
-        today.getFullYear() +
-        "-" +
-        (today.getMonth() + 1) +
-        "-" +
-        today.getDate();
+      const date = build_kit.toSlackDate(new Date());
       // Change the initial date of the date picker to today.
       template = build_kit.changeInitialDate(template, 1, date);
       request.post(

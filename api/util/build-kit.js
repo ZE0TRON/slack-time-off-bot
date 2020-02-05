@@ -115,6 +115,12 @@ const dateFormat = date => {
   const newDateString = dateParts[1] + "/" + dateParts[2] + "/" + dateParts[0];
   return newDateString;
 };
+
+exports.toSlackDate = date => {
+  return (
+    date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+  );
+};
 exports.dateFormat = dateFormat;
 exports.selectorOption = selectorOption;
 exports.timeOffCancelButton = timeOffCancelButton;
