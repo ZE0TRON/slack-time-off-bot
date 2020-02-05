@@ -42,10 +42,7 @@ exports.sendTimeOffModal = trigger_id => {
 // Creates a time off and saves it to database
 exports.createTimeOff = (policy, date, user, user_id) => {
   return new Promise((resolve, reject) => {
-    const dateParts = date.split("-");
-    const newDateString =
-      dateParts[1] + "/" + dateParts[2] + "/" + dateParts[0];
-    const newDate = new Date(newDateString);
+    const newDate = new Date(build_kit.dateFormat(date));
     newDate.setDate(newDate.getDate() + 1);
     console.log(policy);
     const today = new Date();

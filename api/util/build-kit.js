@@ -48,7 +48,8 @@ function timeOffCancelButton(date, policy, index) {
  */
 function createTimeOffList(timeOffs) {
   for (let i = 0; i < timeOffs.length; i++) {
-    let timeOffItem = {
+    const date = dateFormat(timeOffs[i].date);
+    const timeOffItem = {
       type: "section",
       text: {
         type: "mrkdwn",
@@ -58,10 +59,10 @@ function createTimeOffList(timeOffs) {
           "> \n *Policy* : " +
           timeOffs[i].policy_name +
           " \n *Date*: " +
-          timeOffs[i].date
+          date
       }
     };
-    let divider = {
+    const divider = {
       type: "divider"
     };
     timeOffListTemplate.blocks.push(timeOffItem);
@@ -110,6 +111,12 @@ exports.changeInitialDate = (template, blockIndex, date) => {
   return template;
 };
 
+const dateFormat = date => {
+  const dateParts = date.split("-");
+  const newDateString = dateParts[1] + "/" + dateParts[2] + "/" + dateParts[0];
+  return newDateString;
+};
+exports.dateFormat = dateFormat;
 exports.selectorOption = selectorOption;
 exports.timeOffCancelButton = timeOffCancelButton;
 exports.createTimeOffList = createTimeOffList;
