@@ -34,6 +34,7 @@ app.use("/", routes);
 http.createServer(app).listen(port);
 console.log("Server started on: " + port);
 
+// Monday 8 am California Time
 const timeOffAnnouncementsRule = new schedule.RecurrenceRule();
 timeOffAnnouncementsRule.dayOfWeek = 1;
 timeOffAnnouncementsRule.hour = 16;

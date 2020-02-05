@@ -37,5 +37,22 @@ timeOffSchema.statics.getTimeOffs = function() {
   });
 };
 
+timeOffSchema.statics.deleteTimeOffs = function(timeOffs) {
+  return new Promise((resolve, reject) => {
+    timeOffs.forEach(async timeOff => {
+      try {
+        await TimeOff.deleteOne({
+          user_id: timeOff.user_id,
+          date: timeOff.date,
+          policy: timeOff.policy
+        });
+      } catch (e) {
+        reject(e);
+      }
+    });
+    resolve(true);
+  });
+};
+
 const TimeOff = mongoose.model("TimeOff", timeOffSchema);
 module.exports = TimeOff;
