@@ -32,7 +32,7 @@ exports.sendTimeOffAnnouncement = () => {
           );
         })
         .catch(err => {
-          console.err(err);
+          console.error(err);
         });
     })
     .catch(err => {
