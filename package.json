@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --detectOpenHandles -i --runInBand",
+    "test-coverage" : "jest --detectOpenHandles -i --coverage",
     "start": "nodemon app.js",
     "lint": "eslint api/**/*.js --fix"
   },
@@ -24,5 +25,15 @@
     "eslint-config-prettier": "^6.10.0",
     "jest": "^25.1.0",
     "prettier": "^1.19.1"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "bail": true,
+    "collectCoverageFrom": [
+      "api/**/*.js"
+    ],
+    "coverageDirectory": "test/data/coverage/",
+    "globalSetup": "./test/setup.js",
+    "globalTeardown": "./test/teardown.js"
   }
 }
