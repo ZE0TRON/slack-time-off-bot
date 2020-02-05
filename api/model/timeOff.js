@@ -39,8 +39,8 @@ timeOffSchema.statics.getTimeOffs = function() {
 
 timeOffSchema.statics.deleteTimeOffs = function(timeOffs) {
   return new Promise(async (resolve, reject) => {
-    for()
-      let timeOff = timeOff[i];
+    for (let i = 0; i < timeOffs.length; i++) {
+      const timeOff = timeOff[i];
       try {
         await TimeOff.deleteOne({
           user_id: timeOff.user_id,
@@ -50,7 +50,7 @@ timeOffSchema.statics.deleteTimeOffs = function(timeOffs) {
       } catch (e) {
         reject(e);
       }
-    });
+    }
     resolve(true);
   });
 };
