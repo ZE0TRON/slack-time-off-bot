@@ -35,9 +35,8 @@ http.createServer(app).listen(port);
 console.log("Server started on: " + port);
 
 const timeOffAnnouncementsRule = new schedule.RecurrenceRule();
-timeOffAnnouncementsRule.dayOfWeek = 3;
-timeOffAnnouncementsRule.hour = 7;
-timeOffAnnouncementsRule.minute = 51;
+timeOffAnnouncementsRule.dayOfWeek = 1;
+timeOffAnnouncementsRule.hour = 16;
 
 const timeOffAnnouncementsJob = schedule.scheduleJob(
   timeOffAnnouncementsRule,
