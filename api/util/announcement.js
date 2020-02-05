@@ -3,6 +3,7 @@ const request = require("request");
 const build_kit = require("./build-kit");
 // Deletes outdated time offs and send the active ones
 exports.sendTimeOffAnnouncement = () => {
+  console.log("Sending the list");
   TimeOff.getTimeOffs()
     .then(timeOffs => {
       const gonnaDelete = [];
