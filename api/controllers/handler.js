@@ -60,7 +60,7 @@ exports.handlePayload = (req, res, next) => {
     return res.send("Invalid Token");
   }
   console.log(req.body);
-  const user_id = req.body.user_id;
+  const user_id = req.body.user.id;
   const userName = payload.user.username;
   // If its a payload created with interacting with a slack view.
   if (payload.view != null) {
