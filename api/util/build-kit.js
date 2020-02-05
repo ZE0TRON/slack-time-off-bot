@@ -53,7 +53,7 @@ function createTimeOffList(timeOffs) {
       text: {
         type: "mrkdwn",
         text:
-          "*User* : <" +
+          "*User* : <@" +
           timeOffs[i].user_id +
           "> \n *Policy* : " +
           timeOffs[i].policy_name +
