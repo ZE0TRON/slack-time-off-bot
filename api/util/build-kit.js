@@ -82,7 +82,6 @@ exports.addPoliciesToMultiSelect = (template, isInput) => {
     Policy.getPolicies()
       .then(policies => {
         const options = [];
-        console.log(policies.length);
         for (let i = 0; i < policies.length; i++) {
           options.push(
             selectorOption(

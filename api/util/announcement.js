@@ -3,7 +3,6 @@ const request = require("request");
 const build_kit = require("./build-kit");
 // Deletes outdated time offs and send the active ones
 exports.sendTimeOffAnnouncement = () => {
-  console.log("Sending the list");
   TimeOff.getTimeOffs()
     .then(timeOffs => {
       const gonnaDelete = [];
@@ -21,7 +20,6 @@ exports.sendTimeOffAnnouncement = () => {
       }
       const channelName = "timeoff";
       timeOffList = build_kit.createTimeOffList(timeOffs);
-      console.log("Sending the list");
       request.post(
         "https://slack.com/api/chat.postMessage",
         {
@@ -38,8 +36,6 @@ exports.sendTimeOffAnnouncement = () => {
             console.error(error);
             return;
           }
-          console.log(body);
-          console.log(res);
         }
       );
     })

@@ -13,8 +13,6 @@ exports.handleCommand = (req, res, next) => {
   const trigger_id = req.body.trigger_id;
   const user_name = req.body.user_name;
 
-  console.log(req.body);
-
   // Handle the command
   switch (command) {
     case "create_policy":
@@ -74,7 +72,6 @@ exports.handlePayload = (req, res, next) => {
         const policy_name = state.values.policy_name.sl_input.value;
         const max_days = parseInt(state.values.max_day.sl_input.value);
         if (isNaN(max_days)) {
-          console.log("there is an error max days");
           const err = {
             msg: "Max day should be a number",
             block: "max_day"
@@ -100,7 +97,7 @@ exports.handlePayload = (req, res, next) => {
           stateValues.policy_selector.policy_select.selected_option.value;
 
         timeOffController
-          .createTimeOff(policy, date, userName,user_id)
+          .createTimeOff(policy, date, userName, user_id)
           .then(_ => {
             return res.send();
           })
@@ -121,13 +118,12 @@ exports.handlePayload = (req, res, next) => {
     // Parse the interactions
     const actionName = payload.actions[0].block_id.split("/")[0];
     if (actionName === "delete_policy") {
-      console.log(payload.actions);
       deletePolicies(payload.actions[0].selected_options, userName)
         .then(_ => {
           return res.send();
         })
         .catch(err => {
-          console.log(err);
+          console.err(err);
         });
     } else if (actionName === "cancel_timeoff") {
       // Parse date and policy

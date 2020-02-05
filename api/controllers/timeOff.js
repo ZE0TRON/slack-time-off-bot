@@ -44,7 +44,6 @@ exports.createTimeOff = (policy, date, user, user_id) => {
   return new Promise((resolve, reject) => {
     const newDate = new Date(build_kit.dateFormat(date));
     newDate.setDate(newDate.getDate() + 1);
-    console.log(policy);
     const today = new Date();
     if (newDate < today) {
       reject({
@@ -81,7 +80,6 @@ exports.sendCancelTimeOffMessage = (res, userName) => {
   TimeOff.getTimeOffsByUser(userName)
     .then(timeOffs => {
       cancelTimeOffTemplate.blocks = [];
-      console.log(timeOffs);
       for (let i = 0; i < timeOffs.length; i++) {
         cancelTimeOffTemplate.blocks.push(
           build_kit.timeOffCancelButton(

@@ -38,7 +38,7 @@ const timeOffAnnouncementsRule = new schedule.RecurrenceRule();
 timeOffAnnouncementsRule.dayOfWeek = 1;
 timeOffAnnouncementsRule.hour = 16;
 
-const timeOffAnnouncementsJob = schedule.scheduleJob(
+schedule.scheduleJob(
   timeOffAnnouncementsRule,
   announcement.sendTimeOffAnnouncement
 );

@@ -7,7 +7,7 @@ const timeOffSchema = new mongoose.Schema({
   date: String
 });
 
-// Gets all timeOffs of the user  from database
+// Gets user's time offs from database
 timeOffSchema.statics.getTimeOffsByUser = function(userName) {
   return new Promise((resolve, reject) => {
     TimeOff.find({ user_name: userName }, (err, timeOffs) => {
@@ -22,6 +22,7 @@ timeOffSchema.statics.getTimeOffsByUser = function(userName) {
   });
 };
 
+// Gets all timeOffs from database
 timeOffSchema.statics.getTimeOffs = function() {
   return new Promise((resolve, reject) => {
     TimeOff.find({}, (err, timeOffs) => {
