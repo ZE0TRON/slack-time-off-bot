@@ -6,6 +6,7 @@ const policies = require("./data/data").policies;
 const timeOffs = require("./data/data").timeOffs;
 const users = require("./data/data").users;
 const build_kit = require("../api/util/build-kit");
+const announcement = require("../api/util/announcement");
 describe("TimeOff", () => {
   let db;
   beforeAll(async () => {
@@ -83,7 +84,7 @@ describe("TimeOff", () => {
     }
     try {
       const today = new Date();
-      today.setDate(today.getDate - 1);
+      today.setDate(today.getDate() - 1);
       const newDate = build_kit.toSlackDate(today);
       await TimeOffController.createTimeOff(
         policyName,
@@ -94,5 +95,17 @@ describe("TimeOff", () => {
     } catch (e) {
       expect(e.msg).toBe("Can't Request Time Off in The Past");
     }
+    const dbTimeOffs = await TimeOff.getTimeOffs();
+    expect(dbTimeOffs).toHaveLength(timeOffs.length);
+  });
+  it("Should Filter TimeOffs", async () => {
+    let dbTimeOffs = await TimeOff.getTimeOffs();
+    const results = await announcement.filterTimeOffs(dbTimeOffs);
+    const expiredTimeOffs = results.expired;
+    const thisWeekTimeOffs = results.thisWeek;
+    expect(expiredTimeOffs).toHaveLength(1);
+    expect(thisWeekTimeOffs).toHaveLength(2);
+    dbTimeOffs = await TimeOff.getTimeOffs();
+    expect(dbTimeOffs).toHaveLength(timeOffs.length);
   });
 });

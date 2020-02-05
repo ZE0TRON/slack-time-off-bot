@@ -56,20 +56,20 @@ const timeOffs = [
     policy_name: policies[4].name,
     user_name: users[2].user_name,
     user_id: users[2].user_id,
-    date: "2021-02-7"
+    date: "2020-02-7"
   }),
   new TimeOff({
     policy_name: policies[2].name,
     user_name: users[2].user_name,
     user_id: users[2].user_id,
-    date: "2021-02-8"
+    date: "2020-02-8"
   }),
   // Expired => Needs to be deleted
   new TimeOff({
     policy_name: policies[1].name,
     user_name: users[2].user_name,
     user_id: users[2].user_id,
-    date: "2021-02-2"
+    date: "2020-02-2"
   })
 ];
 exports.users = users;

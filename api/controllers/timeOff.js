@@ -40,7 +40,7 @@ exports.createTimeOff = (policy, date, user, user_id) => {
     newDate.setDate(newDate.getDate() + 1);
     const today = new Date();
     if (newDate < today) {
-      reject({
+      return reject({
         msg: "Can't Request Time Off in The Past",
         block: "date_select"
       });

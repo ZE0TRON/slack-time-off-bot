@@ -110,6 +110,7 @@ exports.changeInitialDate = (template, blockIndex, date) => {
   return template;
 };
 
+// Convert to js date format from slack date format
 const dateFormat = date => {
   const dateParts = date.split("-");
   const newDateString = dateParts[1] + "/" + dateParts[2] + "/" + dateParts[0];

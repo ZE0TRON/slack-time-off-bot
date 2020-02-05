@@ -60,3 +60,4 @@ const filterTimeOffs = timeOffs => {
   }
   return { expired: expired, thisWeek: thisWeek };
 };
+exports.filterTimeOffs = filterTimeOffs;
