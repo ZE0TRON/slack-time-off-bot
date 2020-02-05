@@ -65,10 +65,12 @@ function createTimeOffList(timeOffs) {
     const divider = {
       type: "divider"
     };
-    timeOffListTemplate.blocks.push(timeOffItem);
-    timeOffListTemplate.blocks.push(divider);
+    // Copy the object
+    const timeOffList = JSON.parse(JSON.stringify(timeOffListTemplate));
+    timeOffList.blocks.push(timeOffItem);
+    timeOffList.blocks.push(divider);
   }
-  return timeOffListTemplate;
+  return timeOffList;
 }
 
 // Adds the current policies to given multi select

@@ -79,7 +79,6 @@ const timeOffs = [
     date: nextYear1String
   }),
   // In this week
-  // TODO: automate this to this week
   new TimeOff({
     policy_name: policies[4].name,
     user_name: users[2].user_name,
