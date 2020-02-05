@@ -58,7 +58,7 @@ const timeOffs = [
     date: "2021-02-7"
   }),
   new TimeOff({
-    policy_name: policies[3].name,
+    policy_name: policies[2].name,
     user_name: users[2].user_name,
     user_id: users[2].user_id,
     date: "2021-02-8"
@@ -73,26 +73,28 @@ const timeOffs = [
 ];
 
 const createPolicies = () => {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     try {
-      policies.forEach(async policy => {
-        await policy.save();
-      });
+      for (let i = 0; i < policies.length; i++) {
+        await policies[i].save();
+      }
       resolve(true);
     } catch (e) {
+      console.error(e);
       reject(e);
     }
   });
 };
 
 const createTimeOffs = () => {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     try {
-      timeOffs.forEach(async timeOff => {
-        await timeOff.save();
-      });
+      for (let i = 0; i < timeOffs.length; i++) {
+        await timeOffs[i].save();
+      }
       resolve(true);
     } catch (e) {
+      console.error(e);
       reject(e);
     }
   });
@@ -101,15 +103,26 @@ const createTimeOffs = () => {
 module.exports = async () => {
   dotenv.config({ path: ".env.test" });
   const mongoDB = process.env.MONGO_URL;
-  mongoose.connect(mongoDB);
+  try {
+    await mongoose.connect(mongoDB);
+  } catch (e) {
+    console.error(e);
+  }
   const db = mongoose.connection;
   try {
     await db.collections["policies"].drop();
+  } catch (e) {
+    console.error(e);
+  }
+  try {
     await db.collections["timeoffs"].drop();
-  } catch (e) {}
+  } catch (e) {
+    console.error(e);
+  }
   await db.createCollection("policies");
   await db.createCollection("timeoffs");
   await createPolicies();
   await createTimeOffs();
-  db.close();
+  await mongoose.disconnect();
+  await db.close();
 };

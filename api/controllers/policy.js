@@ -26,8 +26,15 @@ exports.sendPolicyModal = trigger_id => {
 };
 
 // Creates a policy with given parameters
-exports.createPolicy = (userName, policyName, maxDays) => {
+exports.createPolicy = (policyName, maxDays) => {
   return new Promise((resolve, reject) => {
+    if (isNaN(maxDays)) {
+      const err = {
+        msg: "Max day should be a number",
+        block: "max_day"
+      };
+      reject(err);
+    }
     Policy.findOne({ name: policyName }, (err, policy) => {
       if (policy != null) {
         reject({
@@ -82,7 +89,7 @@ exports.sendDeletePolicySelector = (responseUrl, userName) => {
 };
 
 // Deletes the policy
-exports.deletePolicy = (userName, policyName) => {
+exports.deletePolicy = policyName => {
   return new Promise((resolve, reject) => {
     Policy.deleteOne({ name: policyName }, err => {
       if (err) {
